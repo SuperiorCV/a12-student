@@ -1,10 +1,15 @@
 <template>
-  <div id="welcome"></div>
+  <div id="welcome">
+    <i class='fad fa-books'></i>
+  </div>
 </template>
 
 <script>
 export default {
   name: "welcome",
+  created(){
+    this.apis.welcome.initData()
+  }
 };
 </script>
 
