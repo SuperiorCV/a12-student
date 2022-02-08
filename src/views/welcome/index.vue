@@ -1,56 +1,78 @@
 <template>
-  <div class="container">
-    <div class="welcome">
-      <div class="mainbox">
-        <!-- 注册 -->
-        <div class="signup nodisplay">
-          <h1>Register</h1>
-          <form action="" autocomplete="off">
-            <input type="text" placeholder="Username" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <input type="password" placeholder="Confirm Password" />
-            <button class="button submit">Create Account</button>
-          </form>
+  <div id="welcome">
+    <div class="container animate__animated animate__zoomIn">
+      <div class="welcome">
+        <div ref="mainbox" class="mainbox">
+          <!-- 注册 -->
+          <div
+            class="signup animate__animated animate__fadeIn"
+            v-show="!isLogin"
+          >
+            <h1>Register</h1>
+            <form action="" autocomplete="off">
+              <input type="text" placeholder="Username" v-model="username" />
+              <input type="email" placeholder="Email" v-model="email" />
+              <input
+                type="password"
+                placeholder="Password"
+                v-model="password"
+              />
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                v-model="confirmPassword"
+              />
+              <button class="button submit">Create Account</button>
+            </form>
+          </div>
+          <!-- 登录 -->
+          <div
+            class="signin animate__animated animate__fadeIn"
+            v-show="isLogin"
+          >
+            <h1>Sign In</h1>
+            <form class="more-padding" action="" autocomplete="off">
+              <input type="text" placeholder="Username" v-model="username" />
+              <input
+                type="password"
+                placeholder="Password"
+                v-model="password"
+              />
+              <div class="checkbox">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  v-model="rememberme"
+                /><label for="remember">Remember Me</label>
+              </div>
+              <button class="button submit">Login</button>
+            </form>
+          </div>
         </div>
-        <!-- 登录 -->
-        <div class="signin">
-          <h1>Sign In</h1>
-          <form class="more-padding" action="" autocomplete="off">
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
-            <div class="checkbox">
-              <input type="checkbox" id="remember" /><label for="remember"
-                >Remember Me</label
-              >
-            </div>
-            <button class="button submit">Login</button>
-          </form>
+        <!-- 背景盒子 -->
+        <div class="leftbox">
+          <h2 class="title"><span>阿巴阿巴</span><br />阿巴阿巴</h2>
+          <p class="desc">你要考试了<span>恐惧吧</span></p>
+          <img
+            class="picture smaller"
+            src="../../../static/images/welcome/logo.jpg"
+            alt=""
+          />
+          <p class="account">Hava an account?</p>
+          <button class="button" id="signin" @click="login">Login</button>
         </div>
-      </div>
-      <!-- 背景盒子 -->
-      <div class="leftbox">
-        <h2 class="title"><span>阿巴阿巴</span><br />阿巴阿巴</h2>
-        <p class="desc">你要考试了<span>恐惧吧</span></p>
-        <img
-          class="picture smaller"
-          src="../../../static/resource/welcome-background.jpg"
-          alt=""
-        />
-        <p class="account">Hava an account?</p>
-        <button class="button" id="signin">Login</button>
-      </div>
 
-      <div class="rightbox">
-        <h2 class="title"><span>阿巴</span><br />阿巴</h2>
-        <p class="desc">你要考试了<span>恐惧吧</span></p>
-        <img
-          class="picture"
-          src="../../../static/resource/welcome-background.jpg"
-          alt=""
-        />
-        <p class="account">Don't have an account?</p>
-        <button class="button" id="signup">Sign Up</button>
+        <div class="rightbox">
+          <h2 class="title"><span>阿巴</span><br />阿巴</h2>
+          <p class="desc">你要考试了<span>恐惧吧</span></p>
+          <img
+            class="picture"
+            src="../../../static/images/welcome/logo.jpg"
+            alt=""
+          />
+          <p class="account">Don't have an account?</p>
+          <button class="button" id="signup" @click="register">Sign Up</button>
+        </div>
       </div>
     </div>
   </div>
@@ -59,6 +81,39 @@
 <script>
 export default {
   name: "welcome",
+  data() {
+    return {
+      mainbox: null,
+      isLogin: true,
+      rememberme: false,
+      username: "",
+      password: "",
+      confirmPassword: "",
+      email: "",
+    };
+  },
+  mounted() {
+    this.mainbox = this.$refs.mainbox;
+    console.log(this.mainbox);
+  },
+  methods: {
+    clearInput() {
+      this.username = "";
+      this.password = "";
+      this.confirmPassword = "";
+      this.email = "";
+    },
+    login() {
+      this.mainbox.style.transform = "translateX(0%)";
+      this.clearInput();
+      this.isLogin = true;
+    },
+    register() {
+      this.mainbox.style.transform = "translateX(80%)";
+      this.clearInput();
+      this.isLogin = false;
+    },
+  },
 };
 </script>
 
@@ -66,6 +121,10 @@ export default {
 #welcome {
   width: 100%;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f2f4f7;
 }
 /* 容器的样式 */
 .container {
@@ -76,20 +135,20 @@ export default {
 }
 
 .welcome {
-  background: #f6f6f6;
+  background: #fff;
   width: 650px;
   height: 415px;
   position: absolute;
   top: 15%;
   border-radius: 5px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 20px 0px rgba(175 187 204 / 20%);
 }
 
 .mainbox {
   position: absolute;
   top: -10%;
   left: 5%;
-  background: skyblue;
+  background: #ff6b6b;
   width: 320px;
   height: 500px;
   border-radius: 5px;
@@ -97,11 +156,9 @@ export default {
   transition: all 0.5s ease-in-out;
   z-index: 2;
 }
-.nodisplay {
-  display: none;
-  transition: all 0.5s ease;
-}
-.leftbox, .rightbox {
+
+.leftbox,
+.rightbox {
   position: absolute;
   width: 50%;
   transition: 1s all ease;
@@ -118,12 +175,12 @@ h1 {
   text-align: center;
   margin-top: 95px;
   text-transform: uppercase;
-  color: #f6f6f6;
+  color: #fff;
   font-size: 2em;
   letter-spacing: 8px;
 }
 .title {
-  font-family: "Lora",serif;
+  font-family: "Lora", serif;
   color: #8e9aaf;
   font-size: 1.8em;
   line-height: 1.1em;
@@ -136,18 +193,18 @@ h1 {
   margin-top: -8px;
 }
 .account {
-  margin-top: 45%;
+  margin-top: 50%;
   font-size: 10px;
 }
 p {
-  font-family: "Open Sans",sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 0.7em;
   letter-spacing: 2px;
   color: #8e9aaf;
   text-align: center;
 }
 span {
-  color: #b2e1e9;
+  color: #ea8685;
 }
 .picture {
   position: absolute;
@@ -156,6 +213,7 @@ span {
   top: 45%;
   left: 30%;
   opacity: 0.8;
+  border-radius: 1rem;
 }
 .smaller {
   width: 130px;
@@ -166,7 +224,7 @@ span {
 }
 button {
   padding: 12px;
-  font-family: "Open Sans",sans-serif;
+  font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
   letter-spacing: 3px;
   font-size: 11px;
@@ -176,15 +234,15 @@ button {
   display: block;
 }
 button:hover {
-  background: skyblue;
+  background: #ff6b6b;
   color: #fff;
   transition: background-color 0.2s ease-out;
 }
 .button {
   margin-top: 3%;
-  background: #f6f6f6;
+  background: #fff;
   color: #706e6e;
-  border: solid 1px skyblue;
+  border: solid 1px #ff6b6b;
 }
 /* 表单样式 */
 form {
@@ -205,39 +263,39 @@ form {
 .submit {
   margin-top: 25px;
   padding: 12px;
-  border-color: skyblue;
+  border-color: #ff6b6b;
 }
 .submit:hover {
   /* background: #cbc0d3; */
   border-color: #fff;
 }
 input {
-  background-color: skyblue;
+  background-color: #ff6b6b;
   width: 65%;
   color: rgb(240, 239, 239);
   border: none;
-  border-bottom: 1px solid rgba(246,246,246,0.7);
+  border-bottom: 1px solid rgba(246, 246, 246, 0.7);
   padding: 9px;
   font-weight: 100;
 }
 input::placeholder {
-  color: #f6f6f6;
+  color: #fff;
   letter-spacing: 2px;
-  font-size: 1.0em;
+  font-size: 1em;
   font-weight: 100;
 }
 input:focus {
   color: #fff;
   outline: none;
   border-bottom: 1.2px solid rgba(27, 150, 199, 0.7);
-  font-size: 1.0em;
+  font-size: 1em;
   transition: 0.2s all ease;
 }
 input:focus::placeholder {
   opacity: 0;
 }
 label {
-  font-family: "Open Sans",sans-serif;
+  font-family: "Open Sans", sans-serif;
   color: #fff;
   font-size: 0.8em;
   letter-spacing: 1px;
@@ -249,9 +307,12 @@ label {
   left: -52px;
   top: 25px;
 }
-input[type=checkbox] {
+input[type="checkbox"] {
   width: 15px;
-  background: skyblue;
+  background: #ff6b6b;
 }
-
+.signup,
+.signin {
+  transition: all 0.5s ease;
+}
 </style>

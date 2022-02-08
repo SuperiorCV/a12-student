@@ -14,6 +14,10 @@ Vue.use(ElementUI);
 import apis from '@/apis'
 Vue.prototype.apis=apis;
 
+// animated.css
+import animated from 'animate.css' 
+Vue.use(animated)
+
 // 引入axios
 import axios from 'axios';
 // 挂载到vue原型链上
