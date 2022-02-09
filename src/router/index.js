@@ -6,13 +6,23 @@ Vue.use(Router)
 export default new Router({
   routes: [{
       path: '/',
-      name: 'welcome',
-      component: () => import('@/views/welcome/index.vue')
+      redirect: '/sign'
     },
     {
       path: '/welcome',
-      name: 'welcome',
-      compnent: () => import('@/views/welcome/index.vue')
+      redirect: '/sign',
+      component: () => import('@/views/welcome/index.vue'),
+      children: [{
+          path: '/sign',
+          name: 'sign',
+          component: () => import('@/components/welcome/sign.vue'),
+        },
+        {
+          path: '/account',
+          name: 'account',
+          component: () => import("@/components/welcome/account.vue")
+        }
+      ]
     }
   ]
 })
