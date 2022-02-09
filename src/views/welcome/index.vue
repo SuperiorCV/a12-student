@@ -1,7 +1,9 @@
 <template>
   <div id="welcome" class="container animate__animated animate__fadeIn">
     <div class="container animate__animated animate__zoomIn">
-      <router-view />
+      <transition name="fade" mode="out-in">
+        <router-view />
+      </transition>
     </div>
   </div>
 </template>
@@ -45,5 +47,13 @@ export default {
   height: 550px;
   position: relative;
   z-index: 5;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: 0.35s ease-out;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

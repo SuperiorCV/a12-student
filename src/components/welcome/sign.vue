@@ -242,6 +242,7 @@ form {
   border-color: #fff;
 }
 input {
+  transition: 0.3s;
   background-color: #ff6b6b;
   width: 65%;
   color: rgb(240, 239, 239);
@@ -259,7 +260,7 @@ input::placeholder {
 input:focus {
   color: #fff;
   outline: none;
-  border-bottom: 1.2px solid rgba(27, 150, 199, 0.7);
+  border-bottom: 2px solid #fff;
   font-size: 1em;
   transition: 0.2s all ease;
 }
