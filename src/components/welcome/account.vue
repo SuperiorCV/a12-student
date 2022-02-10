@@ -49,7 +49,7 @@
         </el-form-item>
       </el-form>
       <div class="control">
-        <div class="button">提交信息</div>
+        <div class="button" @click="submitForm('ruleForm')">提交信息</div>
         <router-link :to="{ name: 'sign' }" class="link"
           >已有账号？ 返回登录</router-link
         >
@@ -63,11 +63,11 @@
         <img
           v-show="!upload"
           src="../../../static/images/welcome/reference.png"
-          class="animate__animated animate__fadeIn"
+          class="animate__animated animate__flipInX"
           height="164px"
           width="auto"
         />
-        <div class="upload animate__animated animate__fadeIn" v-show="upload">
+        <div class="upload animate__animated animate__flipInX" v-show="upload">
           <el-upload
             class="avatar-uploader"
             action="https://jsonplaceholder.typicode.com/posts/"
@@ -138,14 +138,15 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+      // this.$refs[formName].validate((valid) => {
+      //   if (valid) {
+      //     alert("submit!");
+      //   } else {
+      //     console.log("error submit!!");
+      //     return false;
+      //   }
+      // });
+      this.$router.push({ name: "homepage" });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -271,6 +272,7 @@ export default {
   background-repeat: no-repeat;
 }
 .ref {
+  overflow: hidden;
   margin: 0 auto;
   display: flex;
   align-items: center;
