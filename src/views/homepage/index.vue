@@ -1,6 +1,6 @@
 <template>
   <div id="homepage">
-    <div id="l-side">
+    <div id="l-side" class="animate__animated animate__slideInLeft">
       <div id="main">
         <sidebar :checked="checked"></sidebar>
         <input type="checkbox" name="open" id="open" v-model="checked" />
@@ -169,7 +169,7 @@ export default {
     var that = this;
     setTimeout(function () {
       that.checked = true;
-    }, 100);
+    }, 1000);
     this.initChart();
   },
   data() {
@@ -432,11 +432,12 @@ input:checked ~ .bt span:nth-child(3) {
 }
 #chart {
   width: 100%;
-  height:300px;
+  height: 300px;
 }
 #r-main {
   width: calc(100% - 340px);
   min-height: 100vh;
+  margin-left: 340px;
   /* background: green; */
 }
 </style>
