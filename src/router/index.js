@@ -32,6 +32,10 @@ export default new Router({
         path: 'message',
         name: 'message',
         component: () => import("@/views/message/index.vue")
+      }, {
+        path: 'record',
+        name: 'record',
+        component: () => import("@/views/record/index.vue")
       }]
     },
 

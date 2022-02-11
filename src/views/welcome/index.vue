@@ -15,6 +15,7 @@ export default {
 </script>
 
 <style scoped>
+
 #welcome {
   width: 100%;
   height: 100vh;
