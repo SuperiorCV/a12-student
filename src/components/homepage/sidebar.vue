@@ -1,11 +1,6 @@
 <template>
   <div class="menu_container">
-    <input type="checkbox" name="open" id="open" />
-    <label for="open" class="bt">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
+    <input type="checkbox" v-model="checked" id="menu" />
     <ul class="menu">
       <li style="--i: 1">
         <a href="#"> Home </a>
@@ -40,10 +35,8 @@
 <script>
 export default {
   name: "sidebar",
-  mounted() {
-    setTimeout(function () {
-      document.getElementById("open").setAttribute("checked", "checked");
-    }, 100);
+  props: {
+    checked: Boolean,
   },
 };
 </script>
@@ -53,7 +46,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 5;
   user-select: none;
 }
 
@@ -62,52 +55,6 @@ export default {
   top: -1100px;
   left: -1400px;
   opacity: 0;
-}
-
-.menu_container .bt {
-  position: fixed;
-  top: 30px;
-  left: 30px;
-  width: 60px;
-  height: 45px;
-  z-index: 999;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  transform: scale(0.7);
-}
-
-.menu_container .bt span {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 9px;
-  left: 0;
-  border-radius: 9px;
-  background-color: #ff6b6b;
-  opacity: 1;
-  transition: all 0.5s ease-in-out;
-  background-color: #666;
-  box-shadow: rgba(102, 102, 102, 0.4) 0px 4px 12px;
-}
-
-.menu_container input:checked ~ .bt span {
-  box-shadow: rgba(255, 107, 107, 0.4) 0px 4px 12px;
-  background-color: #ff6b6b;
-}
-
-.menu_container input:checked ~ .bt span:nth-child(1) {
-  transform: translateY(18px) rotate(-135deg);
-}
-
-.menu_container input:checked ~ .bt span:nth-child(2) {
-  transform: translateX(60px);
-  opacity: 0;
-}
-
-.menu_container input:checked ~ .bt span:nth-child(3) {
-  transform: translateY(-18px) rotate(135deg);
 }
 
 .menu_container .menu {
