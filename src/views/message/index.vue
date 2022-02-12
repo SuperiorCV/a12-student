@@ -123,7 +123,7 @@ export default {
 }
 .container {
   margin-top: 10px;
-  width: 98%;
+  width: 100%;
   min-height: 100vh;
   border-radius: 4px;
   /* box-shadow: 0 0 1px rgba(0, 0, 0, 0.3); */

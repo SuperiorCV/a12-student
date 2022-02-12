@@ -32,12 +32,27 @@
       cursor: url("//cdn.jsdelivr.net/gh/pdone/static/img/cursor/pointer.cur"), default !important;
     }
 
+    *::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      border-radius: 7px;
+      background-color: rgb(69, 69, 88);
+    }
+
+    *::-webkit-scrollbar-track {
+      border-radius: 7px;
+      background: rgba(0, 0, 0, 0);
+    }
+
     a,
     img,
     button,
     #welcome .button,
     #homepgae .username,
     #homepage .bottom,
+    #item,
     .mesList,
     .check,
     .el-collapse,

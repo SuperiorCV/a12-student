@@ -36,6 +36,10 @@ export default new Router({
         path: 'record',
         name: 'record',
         component: () => import("@/views/record/index.vue")
+      }, {
+        path: 'exam',
+        name: 'exam',
+        component: () => import("@/views/exam/index.vue")
       }]
     },
 

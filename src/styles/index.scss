@@ -11,6 +11,15 @@ body {
   src: url(https://cdn.jsdelivr.net/gh/Langwenchong/cdn/font/SentyGoldenBell.woff2) format('woff2');
 }
 
+// 字体
+@font-face {
+  font-family: 'hytmr';
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url(https://cdn.jsdelivr.net/gh/Langwenchong/cdn/font/hytmr55.woff) format('woff');
+}
+
 #welcome #account .l-wrapper .el-form-item {
   margin-bottom: 35px
 }
@@ -105,3 +114,20 @@ body {
   height: 28px;
   line-height: 28px;
 }
+
+#exam #ongoing .el-carousel__container {
+  height: 240px !important;
+}
+
+#exam #ongoing .el-carousel__item {
+  background: rgb(251, 250, 250);
+  height: 230px;
+  border-radius: 20px;
+  transition: all .3s ;
+  box-shadow: 0 2px 18px rgba(0, 0, 0, 0.08), 0 1px 10px rgba(4, 0, 0, 0.1);
+}
+#exam #ongoing .el-carousel__item--card.is-active{
+  background: #fff;
+}
+
+
