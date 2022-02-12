@@ -2,7 +2,6 @@
   <div id="record">
     <div id="main_container">
       <card v-for="record in record_list" :key="record.id" :record="record">
-        <div id="spacing"></div>
       </card>
     </div>
   </div>
@@ -94,7 +93,4 @@ export default {
   margin: 10px 20px;
 }
 
-#spacing{
-  height:20px;
-}
 </style>

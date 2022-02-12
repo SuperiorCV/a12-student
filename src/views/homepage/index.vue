@@ -35,7 +35,7 @@
               </p>
             </div>
           </div>
-          <div class="bottom">编辑个人资料</div>
+          <div class="bottom" @click="myzone">前往个人空间</div>
         </div>
         <p class="title">个人成就</p>
         <div class="achievements">
@@ -178,6 +178,9 @@ export default {
     };
   },
   methods: {
+    myzone() {
+      this.$router.push({ name: "history" });
+    },
     initChart() {
       this.$nextTick(function () {
         var chartDom = document.getElementById("chart");

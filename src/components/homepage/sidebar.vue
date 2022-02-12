@@ -2,14 +2,14 @@
   <div class="menu_container">
     <input type="checkbox" v-model="checked" id="menu" />
     <ul class="menu">
-      <li style="--i: 1">
-        <a href="#"> Home </a>
+      <li style="--i: 1" @click="goto(0)">
+        <a href="#"> <i class="fad fa-books"></i> 考试列表 </a>
       </li>
-      <li style="--i: 2">
-        <a href="#"> About </a>
+      <li style="--i: 2" @click="goto(1)">
+        <a href="#"> <i class="fad fa-comments-alt"></i> 我的消息 </a>
       </li>
-      <li style="--i: 3">
-        <a href="#"> Info </a>
+      <li style="--i: 3" @click="goto(2)">
+        <a href="#"> <i class='fad fa-folder-open'></i> 我的试卷 </a>
       </li>
       <li style="--i: 4">
         <a href="#"> Contact </a>
@@ -22,7 +22,7 @@
       <div class="details">
         <img
           class="avatar"
-          src="http://vclass.api.cheeseburgerim.space//VClass//static//defaultAvatar.jpg"
+          src="https://s3.bmp.ovh/imgs/2022/01/a714525bf61d4a6a.png"
         />
         <span>langwenchong</span>
       </div>
@@ -37,6 +37,17 @@ export default {
   name: "sidebar",
   props: {
     checked: Boolean,
+  },
+  methods: {
+    goto(i) {
+      if (i === 0) {
+        this.$router.push({ name: "exam" });
+      } else if (i === 1) {
+        this.$router.push({ name: "message" });
+      } else if (i === 2) {
+        this.$router.push({ name: "record" });
+      }
+    },
   },
 };
 </script>

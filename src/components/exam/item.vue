@@ -1,5 +1,5 @@
 <template>
-  <div id="item">
+  <div id="item" class="animate__animated animate__flipInX">
     <h2>{{ el.title }}</h2>
     <p id="duration">{{ el.duration }}</p>
     <p id="calendar">{{ el.startTime }}~{{ el.endTime }}</p>

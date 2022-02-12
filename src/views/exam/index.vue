@@ -13,7 +13,7 @@
       </div>
     </div>
     <div id="container">
-      <div id="pin">
+      <div id="pin" class="animate__animated animate__fadeInDown">
         <div id="ongoing">
           <el-carousel
             type="card"
@@ -73,7 +73,9 @@
         </div>
       </div>
       <div id="list">
-        <item v-for="el in extraList" :key="el.id" :el="el"></item>
+        <transition-group appear>
+          <item v-for="el in extraList" :key="el.id" :el="el"></item>
+        </transition-group>
       </div>
     </div>
   </div>
@@ -88,8 +90,11 @@ export default {
     item,
   },
   created() {
-    this.getNow();
     var that = this;
+    this.getNow();
+    setInterval(function () {
+      that.getNow();
+    }, 1000);
     this.updateData();
     setInterval(function () {
       that.updateData();
@@ -97,10 +102,7 @@ export default {
   },
   methods: {
     getNow() {
-      var that = this;
-      setInterval(function () {
-        that.now = new Date();
-      }, 1000);
+      this.now = new Date();
     },
     updateData() {
       var that = this;

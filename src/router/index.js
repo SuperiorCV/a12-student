@@ -27,6 +27,7 @@ export default new Router({
     {
       path: '/homepage',
       name: 'homepage',
+      redirect: '/homepage/exam',
       component: () => import('@/views/homepage/index.vue'),
       children: [{
         path: 'message',
@@ -40,6 +41,20 @@ export default new Router({
         path: 'exam',
         name: 'exam',
         component: () => import("@/views/exam/index.vue")
+      }, {
+        path: 'myinfo',
+        name: 'myinfo',
+        redirect: '/homepage/myinfo/history',
+        component: () => import("@/views/myinfo/index.vue"),
+        children: [{
+          path: 'history',
+          name: 'history',
+          component: () => import("@/components/myinfo/history.vue")
+        }, {
+          path: 'editinfo',
+          name: 'editinfo',
+          component: () => import("@/components/myinfo/editinfo.vue")
+        }]
       }]
     },
 
