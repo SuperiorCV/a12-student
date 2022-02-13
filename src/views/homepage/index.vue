@@ -26,12 +26,7 @@
             <div class="info">
               <strong>郎少主~</strong>
               <p class="username">
-                1422257646<el-tooltip
-                  effect="dark"
-                  content="编辑个人资料"
-                  placement="right"
-                  ><i class="fas fa-pen-alt edit"></i>
-                </el-tooltip>
+                1422257646
               </p>
             </div>
           </div>
@@ -164,7 +159,6 @@ export default {
   components: {
     sidebar,
   },
-  created() {},
   mounted() {
     var that = this;
     setTimeout(function () {
@@ -296,16 +290,6 @@ export default {
   margin-top: 10px;
   font-size: 14px;
   position: relative;
-}
-.username:hover .edit {
-  opacity: 1;
-}
-.edit {
-  opacity: 0;
-  position: absolute;
-  top: 5px;
-  right: 50px;
-  transition: all 0.4s;
 }
 .bottom {
   margin: 0 auto;

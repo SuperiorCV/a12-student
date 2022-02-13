@@ -1,5 +1,5 @@
 <template>
-  <div id="myinfo">
+  <div id="myinfo" ref="myinfo">
     <div class="container">
       <div id="menu">
         <el-tabs v-model="activeName" @tab-click="handleClick">

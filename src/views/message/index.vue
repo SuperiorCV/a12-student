@@ -64,7 +64,7 @@ export default {
           msg: "阿巴",
           state: 0,
         },
-        {
+        { 
           id: "4",
           title: "消息4",
           date: "2022-02-11 16:56:25",
@@ -115,7 +115,7 @@ export default {
 
 <style scoped>
 #message {
-  width: 100%;
+  width: 98%;
   min-height: 100vh;
   background: rgba(247, 248, 250, 1);
   overflow: hidden;

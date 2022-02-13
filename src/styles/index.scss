@@ -134,3 +134,13 @@ body {
 #myinfo .el-tabs__content {
   display: none;
 }
+
+// 历史动态
+#history .el-timeline {
+  margin-top: 4%;
+}
+#history .el-timeline-item__node--large {
+  width: 23px;
+  height: 23px;
+  left: -6px;
+}
