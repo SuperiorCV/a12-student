@@ -1,5 +1,17 @@
 <template>
   <div id="homepage">
+    <el-dialog
+      title="提示"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center
+    >
+      <span>{{ dialogMessage }}</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="logout">确 定</el-button>
+      </span>
+    </el-dialog>
     <div id="l-side" class="animate__animated animate__slideInLeft">
       <div id="main">
         <sidebar :checked="checked"></sidebar>
@@ -25,9 +37,7 @@
             />
             <div class="info">
               <strong>郎少主~</strong>
-              <p class="username">
-                1422257646
-              </p>
+              <p class="username">1422257646</p>
             </div>
           </div>
           <div class="bottom" @click="myzone">前往个人空间</div>
@@ -168,12 +178,20 @@ export default {
   },
   data() {
     return {
+      centerDialogVisible: false,
+      dialogMessage: `如果要退出,当前未保存的操作将无法保留,您确定要登出账号吗❓`,
       checked: false,
     };
   },
   methods: {
+    out() {
+      this.centerDialogVisible = true;
+    },
+    logout() {
+      this.$router.push({ name: "sign" });
+    },
     myzone() {
-      this.$router.push({ name: "history" });
+      this.$router.push({ name: "myinfo" });
     },
     initChart() {
       this.$nextTick(function () {

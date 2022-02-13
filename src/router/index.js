@@ -44,12 +44,12 @@ export default new Router({
       }, {
         path: 'myinfo',
         name: 'myinfo',
-        redirect: '/homepage/myinfo/history',
+        redirect: '/homepage/myinfo/me',
         component: () => import("@/views/myinfo/index.vue"),
         children: [{
-          path: 'history',
-          name: 'history',
-          component: () => import("@/components/myinfo/history.vue")
+          path: 'me',
+          name: 'me',
+          component: () => import("@/components/myinfo/me.vue"),
         }, {
           path: 'editinfo',
           name: 'editinfo',

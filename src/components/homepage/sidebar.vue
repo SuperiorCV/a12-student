@@ -26,7 +26,7 @@
         />
         <span>langwenchong</span>
       </div>
-      <i class="fad fa-sign-out"></i>
+      <i class="fad fa-sign-out" @click="out"></i>
     </div>
   </div>
 </template>
@@ -39,6 +39,9 @@ export default {
     checked: Boolean,
   },
   methods: {
+    out(){
+      this.$parent.out();
+    },
     goto(i) {
       if (i === 0) {
         this.$router.push({ name: "exam" });

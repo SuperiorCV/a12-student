@@ -1,5 +1,5 @@
 <template>
-  <div id="history" class="animate__animated animate__fadeIn">
+  <div id="history" class="animate__animated animate__fadeInRight">
     <el-timeline>
     <el-timeline-item
       v-for="(activity, index) in activities2"
@@ -85,7 +85,13 @@ export default {
 
 <style scoped>
 #history {
+  box-sizing: border-box;
+  margin-top: 35px;
   width: 100%;
-  min-height: 200px;
+  height: calc( 100% - 35px);
+  overflow-y:auto
+}
+#history::-webkit-scrollbar {
+  width: 0px;
 }
 </style>

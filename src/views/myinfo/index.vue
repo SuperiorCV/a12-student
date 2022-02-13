@@ -3,8 +3,8 @@
     <div class="container">
       <div id="menu">
         <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="用户动态" name="history">用户动态</el-tab-pane>
-          <el-tab-pane label="资料修改" name="editinfo">资料修改</el-tab-pane>
+          <el-tab-pane label="我的空间" name="me"></el-tab-pane>
+          <el-tab-pane label="资料修改" name="editinfo"></el-tab-pane>
           <!-- <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
           <el-tab-pane label="定时任务补偿" name="fourth"
             >定时任务补偿</el-tab-pane
@@ -24,7 +24,7 @@ export default {
   name: "myinfo",
   data() {
     return {
-      activeName: "history",
+      activeName: "me",
     };
   },
   methods: {
@@ -49,9 +49,9 @@ export default {
   width: 100%;
   margin-top: 10px;
   min-height: 80vh;
-  background: #fff;
+  /* background: #fff; */
   border-top-left-radius: 8px;
-  box-shadow: 0px 1px 2px rgb(33 40 53 / 10%), 0px 2px 8px rgb(33 40 53 / 8%);
+  /* box-shadow: 0px 1px 2px rgb(33 40 53 / 10%), 0px 2px 8px rgb(33 40 53 / 8%); */
 }
 #wrapper {
   width: 100%;
