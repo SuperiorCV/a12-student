@@ -4,7 +4,7 @@
       <div id="menu">
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="我的空间" name="me"></el-tab-pane>
-          <el-tab-pane label="资料修改" name="editinfo"></el-tab-pane>
+          <el-tab-pane label="信息修改" name="editinfo"></el-tab-pane>
           <!-- <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
           <el-tab-pane label="定时任务补偿" name="fourth"
             >定时任务补偿</el-tab-pane
