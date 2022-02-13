@@ -10,7 +10,7 @@
         </p>
       </div>
       <div>
-        <transition-group appear>
+        <transition-group appear v-if="messages.length > 0">
           <single-message
             v-for="message in messages"
             :key="message.id"
@@ -19,6 +19,7 @@
           </single-message>
         </transition-group>
       </div>
+      <div class="nomore-messages" v-if="messages.length <= 0"><h1><i class='fas fa-engine-warning'></i> 您暂时没有接收到任何消息</h1></div>
     </div>
   </div>
 </template>
@@ -124,7 +125,7 @@ export default {
 .container {
   margin-top: 10px;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 10px);
   border-radius: 4px;
   /* box-shadow: 0 0 1px rgba(0, 0, 0, 0.3); */
   overflow: hidden;
@@ -155,5 +156,15 @@ export default {
   width: 90%;
   display: flex;
   justify-content: space-between;
+}
+.nomore-messages {
+  width: 100%;
+  height: calc(100% - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: pink; */
+  color: grey;
+  font-family: SentyGoldenBell;
 }
 </style>

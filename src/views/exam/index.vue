@@ -22,8 +22,13 @@
             indicator-position="none"
             :interval="100000000"
           >
-            <el-carousel-item v-for="item in ongoing" :key="item.id">
-              <div class="ongoing">
+            <el-carousel-item v-for="(item, idx) in ongoing" :key="idx">
+              <div class="nomore-ongoing" v-if="item.title === '无进行中考试'">
+                <h2>
+                  <i class="fad fa-smile"></i> 暂时没有正在进行得考试/竞赛
+                </h2>
+              </div>
+              <div class="ongoing" v-if="item.title !== '无进行中考试'">
                 <h2 class="in">前往<i class="fad fa-sign-in-alt"></i></h2>
                 <img
                   class="icon"
@@ -54,7 +59,7 @@
             </el-carousel-item>
           </el-carousel>
         </div>
-        <div id="ready">
+        <div id="ready" v-if="ready != null">
           <h3>{{ ready.title }}</h3>
           <p id="subject">
             <img src="../../../static/images/exam/subject.png" /><span
@@ -71,9 +76,12 @@
 
           <p id="countDown" style="color: #ff6b6b">距离开始: {{ countDown }}</p>
         </div>
+        <div id="nomore-ready" v-if="ready === null">
+          <h3><i class="fad fa-smile"></i> 暂无考试/竞赛</h3>
+        </div>
       </div>
       <div id="list">
-        <transition-group appear>
+        <transition-group appear v-if="extraList.length > 0">
           <item v-for="el in extraList" :key="el.id" :el="el"></item>
         </transition-group>
       </div>
@@ -107,7 +115,7 @@ export default {
     updateData() {
       var that = this;
       if (that.now != null) {
-        that.ready = {};
+        that.ready = null;
         that.ongoing = [];
         that.extraList = [];
         var data = that.arr;
@@ -123,7 +131,16 @@ export default {
             that.extraList.push(tmp);
           }
         }
-        that.ready = that.extraList[0];
+        // console.log(that.ongoing.length)
+        if (that.extraList.length > 0) {
+          that.ready = that.extraList[0];
+        }
+        if (that.ongoing.length < 3) {
+          var len = 3 - that.ongoing.length;
+          for (let i = 0; i < len; i++) {
+            that.ongoing.push({ title: "无进行中考试" });
+          }
+        }
       }
     },
   },
@@ -161,7 +178,7 @@ export default {
   data() {
     return {
       now: null,
-      ready: {},
+      ready: null,
       ongoing: [],
       extraList: [],
       arr: [
@@ -304,15 +321,13 @@ h3 {
   padding: 30px;
   position: relative;
   /* background: pink; */
+  font-weight: 600;
+  color: #000;
 }
 .ongoing img {
   width: 18px;
   position: relative;
   top: 3px;
-}
-.ongoing {
-  font-weight: 600;
-  color: #000;
 }
 .icon {
   position: absolute !important;
@@ -341,6 +356,19 @@ h3 {
   font-weight: 400;
   color: rgba(33, 40, 53, 0.75) !important;
 }
+.nomore-ongoing {
+  font-family: SentyGoldenBell;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 30px;
+  position: relative;
+  font-weight: 600;
+  color: rgb(87, 85, 85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #ready {
   box-sizing: border-box;
   margin-top: 20px;
@@ -355,5 +383,20 @@ h3 {
   width: 18px;
   position: relative;
   top: 3px;
+}
+#nomore-ready {
+  box-sizing: border-box;
+  margin-top: 20px;
+  width: 20%;
+  padding: 20px;
+  height: 200px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 18px rgba(0, 0, 0, 0.08), 0 1px 10px rgba(4, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(87, 85, 85);
+  font-family: "SentyGoldenBell";
 }
 </style>
