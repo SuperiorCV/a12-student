@@ -1,11 +1,12 @@
 <template>
-  <div id="editInfo" class="animate__animated animate__fadeIn">
+  <div id="editInfo">
     <el-card shadow="hover">
       <div slot="header" id="header">
         <span>资料卡</span>
       </div>
 
       <el-form
+        class="animate__animated animate__fadeInUp"
         ref="form"
         :model="form"
         label-width="100px"
@@ -45,6 +46,7 @@
       </div>
 
       <el-form
+        class="animate__animated animate__fadeInUp"
         :model="passwordForm"
         ref="passwordForm"
         label-width="100px"
@@ -234,5 +236,6 @@ export default {
 
 .el-card {
   margin-bottom: 20px;
+  border-radius: 8px;
 }
 </style>
