@@ -54,7 +54,11 @@ export default new Router({
           path: 'editinfo',
           name: 'editinfo',
           component: () => import("@/components/myinfo/editinfo.vue")
-        }]
+        }, ]
+      }, {
+        path: 'waiting',
+        name: 'waiting',
+        component: () => import("@/views/waiting/index.vue")
       }]
     },
 

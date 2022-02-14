@@ -139,8 +139,25 @@ body {
 #history .el-timeline {
   margin-top: 4%;
 }
+
 #history .el-timeline-item__node--large {
   width: 23px;
   height: 23px;
   left: -6px;
+}
+
+#waiting .main .el-breadcrumb {
+  color: #999!important;
+  transition: .5s;
+}
+#waiting .main .el-breadcrumb__inner:hover{
+  color: #fff;
+}
+#waiting .main .el-breadcrumb__inner.is-link{
+  color: #999!important;
+  transition: .3s;
+  font-weight: 500;
+}
+#waiting .main .el-breadcrumb__inner.is-link:hover{
+  color: #fff!important;
 }
