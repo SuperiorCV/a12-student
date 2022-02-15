@@ -1,5 +1,5 @@
 <template>
-  <div id="waiting">
+  <div id="waiting" class="animate__animated animate__fadeIn">
     <div id="head">
       <div class="main">
         <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -18,10 +18,32 @@
         <p class="item">考试时长：{{ exam.duration }}</p>
       </div>
     </div>
-    <!-- <flip-countdown deadline="2024-12-25 00:00"></flip-countdown> -->
     <div id="body">
       <div class="menu">
-        <h2 class="red"><i class='fad fa-arrow-circle-left'></i> 离开等候室</h2>
+        <h2 class="red" @click="backup">
+          <i class="fad fa-arrow-circle-left"></i> 离开等候室
+        </h2>
+        <div id="clock">
+          <h2>距离考试截止还有:</h2>
+          <flip-countdown :deadline="exam.endTime"></flip-countdown>
+        </div>
+      </div>
+      <div class="tips">
+        <h2>●官方系统提示：</h2>
+        <ol>
+          <li>
+            为了保证页面加载显示正常,请优先选择使用chrome、edge、firefrox浏览器进行考试
+          </li>
+          <li>
+            为了防止作弊，在考试前以及考试中会进行人脸识别认证，系统将会为您提供5min的时间进行验证，验证失败本次考试将会暂停，请确保您的浏览器可以正常使用摄像头进行人脸识别同时在考试途中请不要离开座位或者刷新页面
+          </li>
+          <li>
+            如果处于高峰期间进入考试后可能需要1-2min时间进行页面加载，请您见谅稍加等待，如长时间仍然没能进入请迅速联系管理员
+          </li>
+        </ol>
+      </div>
+      <div class="confirm">
+        <confirm></confirm>
       </div>
     </div>
   </div>
@@ -30,9 +52,15 @@
 
 <script>
 import FlipCountdown from "vue2-flip-countdown";
+import confirm from "@/components/waiting/confirm.vue";
 export default {
   name: "waiting",
-  components: { FlipCountdown },
+  components: { FlipCountdown, confirm },
+  methods: {
+    backup() {
+      this.$router.push({ name: "exam" });
+    },
+  },
   data() {
     return {
       exam: {
@@ -59,15 +87,19 @@ export default {
 }
 #body {
   width: 100%;
-  min-height: 200px;
   /* background: pink; */
-  display: flex;
   box-sizing: border-box;
   padding: 10px 20px;
 }
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
 .menu h2 {
-  margin-right: 20px;
-  width: 170px;
+  position: relative;
+  margin: 0;
   text-align: center;
   padding: 10px;
   border-radius: 8px;
@@ -77,9 +109,30 @@ export default {
   background: rgba(204, 51, 51, 0.7);
   color: #fff;
   transition: 0.3s;
+  width: 170px;
 }
 .red:hover {
   background: rgba(204, 51, 51, 0.5);
+}
+#clock {
+  display: flex;
+  align-items: center;
+}
+.tips {
+  background: #eee;
+  width: 100%;
+  /* min-height: 200px; */
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 15px 20px;
+}
+.tips h2 {
+  margin: 0;
+  font-family: SentyGoldenBell;
+}
+.tips ol {
+  margin: 0;
+  font-family: "hytmr";
 }
 #head {
   width: 100%;

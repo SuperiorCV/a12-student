@@ -147,17 +147,38 @@ body {
 }
 
 #waiting .main .el-breadcrumb {
-  color: #999!important;
+  color: #999 !important;
   transition: .5s;
 }
-#waiting .main .el-breadcrumb__inner:hover{
+
+#waiting .main .el-breadcrumb__inner:hover {
   color: #fff;
 }
-#waiting .main .el-breadcrumb__inner.is-link{
-  color: #999!important;
+
+#waiting .main .el-breadcrumb__inner.is-link {
+  color: #999 !important;
   transition: .3s;
   font-weight: 500;
 }
-#waiting .main .el-breadcrumb__inner.is-link:hover{
-  color: #fff!important;
+
+#waiting .main .el-breadcrumb__inner.is-link:hover {
+  color: #fff !important;
+}
+
+#waiting .flip-clock {
+  display: flex;
+}
+
+#waiting .flip-clock__piece {
+  display: flex !important;
+  align-items: center;
+}
+
+#waiting .flip-card {
+  transform: scale(0.75);
+}
+
+#waiting .flip-card {
+  display: flex;
+  align-items: center;
 }

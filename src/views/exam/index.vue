@@ -20,7 +20,7 @@
             trigger="click"
             height="150px"
             indicator-position="none"
-            :interval="100000000"
+            :interval="10000"
           >
             <el-carousel-item v-for="(item, idx) in ongoing" :key="idx">
               <div class="nomore-ongoing" v-if="item.title === '无进行中考试'">
@@ -29,7 +29,9 @@
                 </h2>
               </div>
               <div class="ongoing" v-if="item.title !== '无进行中考试'">
-                <h2 class="in">前往<i class="fad fa-sign-in-alt"></i></h2>
+                <h2 class="in" @click="exam">
+                  前往<i class="fad fa-sign-in-alt"></i>
+                </h2>
                 <img
                   class="icon"
                   src="../../../static/images/exam/ongoing.png"
@@ -74,7 +76,7 @@
             >{{ ready.duration }}
           </p>
 
-          <p id="countDown" style="color: #ff6b6b">距离开始: {{ countDown }}</p>
+          <p id="countDown" style="color: #ff6b6b">{{ countDown }}后开始</p>
         </div>
         <div id="nomore-ready" v-if="ready === null">
           <h3><i class="fad fa-smile"></i> 暂无考试/竞赛</h3>
@@ -109,6 +111,9 @@ export default {
     }, 1000);
   },
   methods: {
+    exam() {
+      this.$router.push({ name: "waiting" });
+    },
     getNow() {
       this.now = new Date();
     },
