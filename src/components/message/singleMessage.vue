@@ -11,7 +11,15 @@
           </div>
           <div class="date">{{ mes.date }}</div>
         </template>
-        <div>{{ mes.msg }}</div>
+        <div class="content">
+          <div>{{ mes.msg }}</div>
+          <div v-if="mes.type == 'class'">
+            <el-button type="text">同意加入</el-button>
+          </div>
+          <div v-else-if="mes.type == 'test'">
+            <el-button type="text">查看试卷</el-button>
+          </div>
+        </div>
       </el-collapse-item>
     </el-collapse>
   </div>
@@ -113,5 +121,12 @@ export default {
   background-color: rgb(214, 250, 214);
   border-color: rgb(145, 245, 145);
   color: rgb(78, 194, 116);
+}
+
+.content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 20px;
 }
 </style>

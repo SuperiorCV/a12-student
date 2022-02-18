@@ -11,7 +11,47 @@
     <div id="bottom">
       <div class="myclass">
         <h2><i class="fad fa-users-class"></i> 我的班级</h2>
-        <h2 class="green"><i class="fad fa-smile-plus"></i> 加入班级</h2>
+        <h2 class="green" type="text" @click="dialogFormVisible = true">
+          <i class="fad fa-smile-plus"></i> 加入班级
+        </h2>
+
+        <el-dialog
+          title="加入班级"
+          class="dialog"
+          :visible.sync="dialogFormVisible"
+          width="30%"
+          :show-close="false"
+          center
+        >
+          <el-form
+            class="classForm"
+            :model="form"
+            ref="form"
+            label-width="100px"
+          >
+            <el-form-item label="班级号">
+              <el-autocomplete
+                class="inline-input"
+                v-model="form.class_id"
+                :fetch-suggestions="querySearch"
+                placeholder="请输入你的班级号"
+                :trigger-on-focus="false"
+                @select="handleSelect"
+                style="width: 100%"
+              ></el-autocomplete>
+            </el-form-item>
+          </el-form>
+
+          <div class="join">
+            <el-button
+              class="joinButton"
+              type="primary"
+              @click="joinClass()"
+              round
+              >加入</el-button
+            >
+          </div>
+        </el-dialog>
       </div>
       <div class="classList">
         <div
@@ -80,6 +120,14 @@ export default {
           num: 40,
         },
       ],
+
+      dialogTableVisible: false,
+      dialogFormVisible: false,
+
+      form: {
+        class_id: "",
+      },
+      search: [],
     };
   },
   directives: {
@@ -92,6 +140,50 @@ export default {
         el.style.backgroundColor = "#f1e05a";
       }
     },
+  },
+  methods: {
+    querySearch(queryString, cb) {
+      var search = this.search;
+      var results = queryString
+        ? search.filter(this.createFilter(queryString))
+        : search;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+
+    createFilter(queryString) {
+      return (search) => {
+        return (
+          search.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+        );
+      };
+    },
+
+    searchData() {
+      return [
+        { value: "355257-高等数学4班" },
+        { value: "350257-线性代数3班" },
+        { value: "320227-概率论与数理统计2班" },
+        { value: "247257-计算机组成原理1班" },
+      ];
+    },
+
+    handleSelect(item) {
+      console.log(item);
+    },
+
+    joinClass() {
+      this.$message({
+        message: "加入新班级成功",
+        type: "success",
+      });
+      this.dialogFormVisible = false;
+      this.form.class_id = "";
+    },
+  },
+
+  mounted() {
+    this.search = this.searchData();
   },
 };
 </script>
@@ -210,5 +302,26 @@ h2 {
 }
 .pin-box .point span {
   font-size: 10px;
+}
+
+.dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.classForm {
+  width: 90%;
+}
+
+.join {
+  display: flex;
+  justify-content: center;
+}
+.joinButton {
+  display: flex;
+  justify-content: center;
+  width: 180px;
 }
 </style>
