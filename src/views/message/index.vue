@@ -81,12 +81,14 @@ export default {
           date: "2022-02-11 18:20:25",
           msg: "阿巴",
           state: 0,
+          type:'test',
         },
         {
           id: "6",
           title: "消息6",
           date: "2022-02-11 18:22:25",
           msg: "阿巴",
+          type:"class",
           state: 0,
         },
         {
