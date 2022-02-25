@@ -59,6 +59,10 @@ export default new Router({
         path: 'waiting',
         name: 'waiting',
         component: () => import("@/views/waiting/index.vue")
+      }, {
+        path: 'wrong',
+        name: 'wrong',
+        component: () => import("@/views/wrong/index.vue")
       }]
     },
 

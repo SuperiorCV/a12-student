@@ -9,10 +9,10 @@
         <a href="#"> <i class="fad fa-comments-alt"></i> 我的消息 </a>
       </li>
       <li style="--i: 3" @click="goto(2)">
-        <a href="#"> <i class='fad fa-folder-open'></i> 我的试卷 </a>
+        <a href="#"> <i class="fad fa-folder-open"></i> 我的提交 </a>
       </li>
-      <li style="--i: 4">
-        <a href="#"> Contact </a>
+      <li style="--i: 4" @click="goto(3)">
+        <a href="#"> <i class="fad fa-archive"></i> 错题记录 </a>
       </li>
       <li style="--i: 5">
         <a href="#"> Show me more </a>
@@ -39,7 +39,7 @@ export default {
     checked: Boolean,
   },
   methods: {
-    out(){
+    out() {
       this.$parent.out();
     },
     goto(i) {
@@ -49,6 +49,8 @@ export default {
         this.$router.push({ name: "message" });
       } else if (i === 2) {
         this.$router.push({ name: "record" });
+      } else if (i === 3) {
+        this.$router.push({ name: "wrong" });
       }
     },
   },
