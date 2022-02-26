@@ -1,6 +1,6 @@
 <template>
   <div id="wrong">
-    <transition-group>
+    <transition-group appear>
       <div
         class="card"
         v-for="(question, j) in questionList"
