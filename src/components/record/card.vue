@@ -23,7 +23,7 @@
           <span>试卷总分：{{ record.total }}</span>
         </div>
 
-        <el-button type="text">查看试卷</el-button>
+        <el-button type="text" @click="result">查看试卷</el-button>
       </div>
     </el-card>
   </div>
@@ -42,7 +42,11 @@ export default {
   //   };
   // },
 
-  methods: {},
+  methods: {
+    result() {
+      this.$router.push({ name: "result" });
+    },
+  },
 };
 </script>
 
