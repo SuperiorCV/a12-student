@@ -65,6 +65,10 @@ export default new Router({
         component: () => import("@/views/wrong/index.vue")
       }]
     },
-
+    {
+      path: '/testing',
+      name: 'testing',
+      component: () => import("@/views/testing/index.vue")
+    }
   ]
 })

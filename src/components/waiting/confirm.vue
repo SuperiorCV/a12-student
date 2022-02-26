@@ -5,7 +5,10 @@
       <el-step title="人脸识别身份验证"></el-step>
       <el-step title="进入考试"></el-step>
     </el-steps>
-    <div class="principle animate__animated animate__fadeInUp" v-if="active === 0" >
+    <div
+      class="principle animate__animated animate__fadeInUp"
+      v-if="active === 0"
+    >
       <h2>考试规则承诺书：</h2>
       本人自愿参加考试，现郑重承诺：
       <ol>
@@ -53,7 +56,7 @@
       </div>
     </div>
     <div class="start animate__animated animate__fadeInUp" v-if="active === 2">
-      <div class="in-button">
+      <div class="in-button" @click="startExam()">
         <span><i class="fad fa-angle-double-right"></i> 开始考试!</span>
         <a href="#">考</a>
         <a href="#">试</a>
@@ -69,7 +72,6 @@
 <script>
 export default {
   name: "confirm",
-
   data() {
     return {
       active: 0,
@@ -79,6 +81,9 @@ export default {
   methods: {
     next() {
       if (this.active++ > 2) this.active = 0;
+    },
+    startExam() {
+      this.$router.push({ name: "testing" });
     },
   },
 };
