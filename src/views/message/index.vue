@@ -81,6 +81,7 @@ export default {
           date: "2022-02-11 18:20:25",
           msg: "阿巴",
           state: 0,
+          type:'other',
         },
         {
           id: "6",
@@ -88,6 +89,7 @@ export default {
           date: "2022-02-11 18:22:25",
           msg: "阿巴",
           state: 0,
+          type:'other',
         },
         {
           id: "7",
@@ -95,6 +97,7 @@ export default {
           date: "2022-02-11 16:56:25",
           msg: "阿巴",
           state: 0,
+          type:'other',
         },
         {
           id: "8",
@@ -102,6 +105,7 @@ export default {
           date: "2022-01-11 17:56:25",
           msg: "阿巴",
           state: 0,
+          type:'other',
         },
         {
           id: "9",
@@ -109,6 +113,7 @@ export default {
           date: "2022-01-11 17:56:25",
           msg: "阿巴",
           state: 0,
+          type:'other',
         },
       ],
     };
