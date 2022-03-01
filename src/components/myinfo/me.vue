@@ -236,6 +236,7 @@ h2 {
   margin-bottom: 15px;
   line-height: 1.6;
   position: relative;
+  max-width: 95%;
 }
 .icon {
   margin-right: 10px;

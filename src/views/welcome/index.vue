@@ -15,7 +15,6 @@ export default {
 </script>
 
 <style scoped>
-
 #welcome {
   width: 100%;
   height: 100vh;
@@ -25,21 +24,13 @@ export default {
   background: #f2f4f7;
   position: relative;
 }
-#welcome::before {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  content: "";
-  background: url("../../../static/images/welcome/bg1.png") no-repeat left
-    bottom;
-}
 #welcome::after {
   position: absolute;
   width: 100%;
   height: 100%;
   content: "";
-  background: url("../../../static/images/welcome/bg2.png") no-repeat right
-    bottom;
+  background: url("https://cdn.jsdelivr.net/gh/Langwenchong/cdn/bg/bg.svg");
+  background-size: cover;
 }
 /* 容器的样式 */
 .container {

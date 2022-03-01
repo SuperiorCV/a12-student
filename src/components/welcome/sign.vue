@@ -3,14 +3,14 @@
     <div ref="mainbox" class="mainbox">
       <!-- 注册 -->
       <div class="signup animate__animated animate__fadeIn" v-show="!isLogin">
-        <h1>Register</h1>
+        <h1>注册账号</h1>
         <form action="" autocomplete="off">
-          <input type="text" placeholder="Username" v-model="username" />
-          <input type="email" placeholder="Email" v-model="email" />
-          <input type="password" placeholder="Password" v-model="password" />
+          <input type="text" placeholder="账号" v-model="username" />
+          <input type="email" placeholder="电子邮箱" v-model="email" />
+          <input type="password" placeholder="密码" v-model="password" />
           <input
             type="password"
-            placeholder="Confirm Password"
+            placeholder="确认密码"
             v-model="confirmPassword"
           />
           <div class="button submit" @click="next">Create Account</div>
@@ -18,10 +18,10 @@
       </div>
       <!-- 登录 -->
       <div class="signin animate__animated animate__fadeIn" v-show="isLogin">
-        <h1>Sign In</h1>
+        <h1>登录系统</h1>
         <form class="more-padding" action="" autocomplete="off">
-          <input type="text" placeholder="Username" v-model="username" />
-          <input type="password" placeholder="Password" v-model="password" />
+          <input type="text" placeholder="账号" v-model="username" />
+          <input type="password" placeholder="密码" v-model="password" />
           <div class="checkbox">
             <input type="checkbox" id="remember" v-model="rememberme" /><label
               for="remember"
@@ -34,26 +34,26 @@
     </div>
     <!-- 背景盒子 -->
     <div class="leftbox">
-      <h2 class="title"><span>阿巴阿巴</span><br />阿巴阿巴</h2>
-      <p class="desc">你要考试了<span>恐惧吧</span></p>
+      <h2 class="title"><span>A12赛道题目</span><br />教考分离系统</h2>
+      <p class="desc">天津大学<span>高级CV攻城狮团队</span></p>
       <img
         class="picture smaller"
         src="../../../static/images/welcome/logo.jpg"
         alt=""
       />
-      <p class="account">Hava an account?</p>
+      <p class="account">已拥有账号？</p>
       <div class="button" id="signin" @click="login">Login</div>
     </div>
 
     <div class="rightbox">
-      <h2 class="title"><span>阿巴</span><br />阿巴</h2>
-      <p class="desc">你要考试了<span>恐惧吧</span></p>
+       <h2 class="title"><span>A12赛道题目</span><br />教考分离系统</h2>
+      <p class="desc">天津大学<span>高级CV攻城狮团队</span></p>
       <img
         class="picture"
         src="../../../static/images/welcome/logo.jpg"
         alt=""
       />
-      <p class="account">Don't have an account?</p>
+      <p class="account">还未拥有账号?</p>
       <div class="button" id="signup" @click="register">Sign Up</div>
     </div>
   </div>

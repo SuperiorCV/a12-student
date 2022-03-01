@@ -287,6 +287,7 @@ export default {
   position: relative;
   padding-top: 10px;
   width: 100%;
+  min-height: 80vh;
   /* height: 100vh; */
   /* background: pink; */
   padding-left: 20px;
