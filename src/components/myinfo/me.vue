@@ -29,16 +29,9 @@
             ref="form"
             label-width="100px"
           >
-            <el-form-item label="班级号">
-              <el-autocomplete
-                class="inline-input"
-                v-model="form.class_id"
-                :fetch-suggestions="querySearch"
-                placeholder="请输入你的班级号"
-                :trigger-on-focus="false"
-                @select="handleSelect"
-                style="width: 100%"
-              ></el-autocomplete>
+            <el-form-item label="班级口令：">
+              <el-input placeholder="请输入班级口令" v-model="command">
+              </el-input>
             </el-form-item>
           </el-form>
 
@@ -48,8 +41,26 @@
               type="primary"
               @click="joinClass()"
               round
-              >加入</el-button
+              >搜索</el-button
             >
+          </div>
+          <div
+            class="pin-box animate__animated animate__fadeInUp"
+            v-for="(box, idx) in result"
+            :key="idx"
+          >
+            <div class="title">
+              <span @click="goto(idx)">
+                <i class="fad fa-users"></i>
+                <b>{{ box.name }}</b>
+              </span>
+            </div>
+            <p class="info"><b>教学老师：</b>{{ box.teacher }}</p>
+            <div id="status">
+              <div class="point" v-state="box.num"></div>
+              <span>{{ box.num }}人</span>
+            </div>
+            <el-button type="success" plain class="joinClass">加入班级</el-button>
           </div>
         </el-dialog>
       </div>
@@ -88,6 +99,14 @@ export default {
   },
   data() {
     return {
+      command: "",
+      result: [
+        {
+          name: "数据库1班",
+          teacher: "郎文翀",
+          num: 90,
+        },
+      ],
       arr: [
         {
           name: "数据库1班",
@@ -121,7 +140,6 @@ export default {
         },
       ],
 
-      dialogTableVisible: false,
       dialogFormVisible: false,
 
       form: {
@@ -141,50 +159,7 @@ export default {
       }
     },
   },
-  methods: {
-    querySearch(queryString, cb) {
-      var search = this.search;
-      var results = queryString
-        ? search.filter(this.createFilter(queryString))
-        : search;
-      // 调用 callback 返回建议列表的数据
-      cb(results);
-    },
-
-    createFilter(queryString) {
-      return (search) => {
-        return (
-          search.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
-        );
-      };
-    },
-
-    searchData() {
-      return [
-        { value: "355257-高等数学4班" },
-        { value: "350257-线性代数3班" },
-        { value: "320227-概率论与数理统计2班" },
-        { value: "247257-计算机组成原理1班" },
-      ];
-    },
-
-    handleSelect(item) {
-      console.log(item);
-    },
-
-    joinClass() {
-      this.$message({
-        message: "加入新班级成功",
-        type: "success",
-      });
-      this.dialogFormVisible = false;
-      this.form.class_id = "";
-    },
-  },
-
-  mounted() {
-    this.search = this.searchData();
-  },
+  methods: {},
 };
 </script>
 
@@ -260,6 +235,8 @@ h2 {
   padding: 16px;
   margin-bottom: 15px;
   line-height: 1.6;
+  position: relative;
+  max-width: 95%;
 }
 .icon {
   margin-right: 10px;
@@ -323,5 +300,12 @@ h2 {
   display: flex;
   justify-content: center;
   width: 180px;
+  margin-bottom: 20px;
+}
+.joinClass{
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>

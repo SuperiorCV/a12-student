@@ -18,21 +18,12 @@
         </div>
 
         <div id="middle" class="container">
-          <span>试卷类型：{{ record.type }}</span>
           <span>学科： {{ record.subject }}</span>
           <span>题目数量：{{ record.num }}</span>
           <span>试卷总分：{{ record.total }}</span>
-          <span>发布时间：{{ record.release_time }}</span>
         </div>
 
-        <div id="right" class="container">
-          <span>正确题数：{{ record.right_num }}</span>
-          <span>自动批改：{{ record.auto }}</span>
-          <span>最终得分：{{ record.score }}</span>
-          <span>耗时：{{ record.time }}</span>
-        </div>
-
-        <el-button type="text">查看试卷</el-button>
+        <el-button type="text" @click="result">查看试卷</el-button>
       </div>
     </el-card>
   </div>
@@ -51,7 +42,11 @@ export default {
   //   };
   // },
 
-  methods: {},
+  methods: {
+    result() {
+      this.$router.push({ name: "result" });
+    },
+  },
 };
 </script>
 
@@ -82,12 +77,7 @@ export default {
 }
 
 #middle {
-  width: 30%;
-  justify-content: space-between;
-}
-
-#right {
-  width: 20%;
-  justify-content: space-between;
+  width: 50%;
+  justify-content: space-around;
 }
 </style>
