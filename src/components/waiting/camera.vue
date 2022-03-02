@@ -82,7 +82,7 @@ export default {
       videoWidth: 500,
       videoHeight: 400,
 
-      id: 300, //用户id
+      id: 201, //用户id
     };
   },
   methods: {
@@ -100,7 +100,7 @@ export default {
       if (this.imgSrc) {
         const file = this.imgSrc; // 把整个base64给file
         const time = new Date().valueOf(); //生成时间戳
-        const name = time + ".png"; // 定义文件名字（例如：abc.png ， cover.png）
+        const name = time + ".jpg"; // 定义文件名字（例如：abc.png ， cover.png）
         const conversions = this.dataURLtoFile(file, name); // 调用base64转图片方法
         const stuId = this.id;
         const data = new FormData();
@@ -110,33 +110,29 @@ export default {
         const options = {
           method: "POST", //请求方法
           body: data, //请求体
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
         };
         this.loading = true;
-        fetch("/apis/face/verify", options)
-          .then((response) => {
-            return response.json();
-          })
-          .then((responseText) => {
+        fetch("apis/face/verify/", options)
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
             this.loading = false;
-            if (responseText.code === 0) {
-              this.imgSrc = responseText.data.src;
-              this.$emit("getImg", responseText.data.src); //传递给父组件
-              this.onCancel();
+            this.onCancel();
+            if(data.verify_correct=="false"){
+              this.$notify.error({
+                title: "上传失败",
+              });
+            }else{
               this.$notify({
                 title: "上传成功",
-                message: responseText.msg,
                 type: "success",
               });
             }
-          })
+          })  
           .catch((error) => {
             this.loading = false;
             this.$notify.error({
               title: "上传失败",
-              message: error.msg,
             });
           });
       } else {
@@ -225,7 +221,7 @@ export default {
         this.videoHeight
       );
       // 获取图片base64链接
-      this.imgSrc = this.thisCancas.toDataURL("image/png");
+      this.imgSrc = this.thisCancas.toDataURL("image/jpeg");
     },
     //base64转文件
     dataURLtoFile(dataurl, filename) {
