@@ -106,7 +106,7 @@ export default {
         const data = new FormData();
         data.append("face", conversions);
         data.append("student_id", stuId);
-        console.log(data)
+        // console.log(data)
         const options = {
           method: "POST", //请求方法
           body: data, //请求体
@@ -121,6 +121,7 @@ export default {
           })
           .then((responseText) => {
             this.loading = false;
+            console.log(responseText)
             if (responseText.code === 0) {
               this.imgSrc = responseText.data.src;
               this.$emit("getImg", responseText.data.src); //传递给父组件

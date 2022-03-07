@@ -215,7 +215,7 @@ export default {
               indicator: [
                 { text: "精准", max: 100 },
                 { text: "得分", max: 100 },
-                { text: "速度", max: 100 },
+                { text: "神速", max: 100 },
                 { text: "优秀", max: 100 },
               ],
               center: ["50%", "50%"],
@@ -231,7 +231,7 @@ export default {
               areaStyle: {},
               data: [
                 {
-                  value: [60, 73, 85, 40],
+                  value: [60, 73, 95, 40],
                   // name: 'A Software'
                 },
               ],
