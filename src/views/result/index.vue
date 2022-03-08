@@ -26,6 +26,7 @@
       </div>
     </div>
     <div id="r-main">
+      <chart></chart>
       <div class="module" v-for="(mod, idx) in exam.modules" :key="idx">
         <div class="header">
           <h3>模块{{ idx + 1 }}：{{ mod.title }}</h3>
@@ -51,10 +52,12 @@
 
 <script>
 import AnswerShow from "@/components/result/answerShow.vue";
+import chart from "@/components/result/chart.vue";
 export default {
   name: "check",
   components: {
     AnswerShow,
+    chart,
   },
   created() {
     var params = this.$route.params;
@@ -448,6 +451,8 @@ export default {
   border-top: 1px solid #e6e6e6;
 }
 .header {
+  display: flex;
+  align-items: center;
   height: 64px;
   box-sizing: border-box;
   padding: 10px;

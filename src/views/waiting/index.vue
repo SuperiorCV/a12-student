@@ -54,10 +54,10 @@
 <script>
 import FlipCountdown from "vue2-flip-countdown";
 import confirm from "@/components/waiting/confirm.vue";
-import camera from '@/components/waiting/camera.vue'
+import camera from "@/components/waiting/camera.vue";
 export default {
   name: "waiting",
-  components: { FlipCountdown, confirm ,camera},
+  components: { FlipCountdown, confirm, camera},
   methods: {
     backup() {
       this.$router.push({ name: "exam" });

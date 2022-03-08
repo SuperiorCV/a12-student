@@ -1,8 +1,5 @@
 <template>
   <div>
-    <el-button @click="onTake" icon="el-icon-camera" size="small">
-      拍照上传
-    </el-button>
     <el-dialog
       title="拍照上传"
       :visible.sync="visible"
@@ -85,11 +82,23 @@ export default {
       id: 201, //用户id
     };
   },
+
+  computed: {
+    monitor () {
+      return this.$store.state.camera_show
+    }
+  },
+
+  watch: {
+    monitor () {
+      this.visible = this.$store.state.camera_show
+      if(this.visible){
+        this.getCompetence();
+      }
+    }
+  },
+
   methods: {
-    onTake() {
-      this.visible = true;
-      this.getCompetence();
-    },
     onCancel() {
       this.visible = false;
       this.resetCanvas();
@@ -106,29 +115,29 @@ export default {
         const data = new FormData();
         data.append("face", conversions);
         data.append("student_id", stuId);
-        console.log(data)
+        // console.log(data)
         const options = {
           method: "POST", //请求方法
           body: data, //请求体
         };
         this.loading = true;
         fetch("apis/face/verify/", options)
-          .then(res => res.json())
-          .then(data => {
+          .then((res) => res.json())
+          .then((data) => {
             console.log(data);
             this.loading = false;
             this.onCancel();
-            if(data.verify_correct=="false"){
+            if (data.verify_correct == "false") {
               this.$notify.error({
                 title: "上传失败",
               });
-            }else{
+            } else {
               this.$notify({
                 title: "上传成功",
                 type: "success",
               });
             }
-          })  
+          })
           .catch((error) => {
             this.loading = false;
             this.$notify.error({
