@@ -49,7 +49,7 @@
         />
       </div>
       <div id="button">
-        <el-button type="primary" @click="active = 2"
+        <el-button type="primary" @click="activeMotivation()"
           ><i class="el-icon-upload el-icon--right"></i
           >开始进行人脸识别认证</el-button
         >
@@ -85,6 +85,10 @@ export default {
     startExam() {
       this.$router.push({ name: "testing" });
     },
+    activeMotivation(){
+      this.active = 2;
+      this.$store.commit("set_camera_show_true");
+    }
   },
 };
 </script>
