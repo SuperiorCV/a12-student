@@ -70,10 +70,11 @@
         <div class="upload animate__animated animate__flipInX" v-show="upload">
           <el-upload
             class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            action="sb"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
+            ref="uploader"
           >
             <img v-if="imageUrl" :src="imageUrl" class="avatar" />
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -129,6 +130,7 @@ export default {
         school: "",
         sex: "",
       },
+      avatar: null,
       rules: {
         name: [{ validator: validateName, trigger: "blur" }],
         phoneNumber: [{ validator: validatePhoneNumber, trigger: "blur" }],
@@ -138,14 +140,23 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      // this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //     alert("submit!");
-      //   } else {
-      //     console.log("error submit!!");
-      //     return false;
-      //   }
-      // });
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let username =  this.$route.params.username;
+          let email =  this.$route.params.email;
+          let password =  this.$route.params.password;
+
+          this.$refs.uploader.submit();
+
+          this.apis.welcome.register(this.ruleForm, this.avatar, username, email, password).then((res) => {
+            console.log(res);
+          });
+          alert("submit!");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
       this.$router.push({ name: "homepage" });
     },
     resetForm(formName) {
@@ -157,6 +168,8 @@ export default {
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
       const isLt2M = file.size / 1024 / 1024 < 2;
+      
+      this.avatar = file;
 
       if (!isJPG) {
         this.$message.error("上传头像图片只能是 JPG 格式!");

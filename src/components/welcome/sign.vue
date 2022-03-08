@@ -77,11 +77,23 @@ export default {
   },
   mounted() {
     this.mainbox = this.$refs.mainbox;
+    if(localStorage.getItem("username") != null && localStorage.getItem("password") != null){
+      this.username = localStorage.getItem("username");
+      this.password = localStorage.getItem("password");
+      this.rememberme = true;
+    }
   },
   methods: {
     submitLogin() {
       this.apis.welcome.login(this.username, this.password).then((res) => {
         console.log(res);
+        if(this.rememberme){
+          localStorage.setItem('username', this.username);
+          localStorage.setItem('password', this.password);
+        }else{
+          localStorage.removeItem('username');
+          localStorage.removeItem('password');
+        }
       });
     },
     clearInput() {
@@ -101,7 +113,15 @@ export default {
       this.isLogin = false;
     },
     next() {
-      this.$router.push({ name: "account" });
+
+      this.$router.push({ 
+        name: "account", 
+        params: { 
+          username: this.username, 
+          email:this.email,
+          password:this.password,
+        }
+      },);
     },
   },
 };
