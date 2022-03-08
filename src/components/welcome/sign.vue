@@ -28,7 +28,7 @@
               >Remember Me</label
             >
           </div>
-          <div class="button submit">Login</div>
+          <div class="button submit" @click="submitLogin">Login</div>
         </form>
       </div>
     </div>
@@ -46,7 +46,7 @@
     </div>
 
     <div class="rightbox">
-       <h2 class="title"><span>A12赛道题目</span><br />教考分离系统</h2>
+      <h2 class="title"><span>A12赛道题目</span><br />教考分离系统</h2>
       <p class="desc">天津大学<span>高级CV攻城狮团队</span></p>
       <img
         class="picture"
@@ -77,9 +77,13 @@ export default {
   },
   mounted() {
     this.mainbox = this.$refs.mainbox;
-    console.log(this.mainbox);
   },
   methods: {
+    submitLogin() {
+      this.apis.welcome.login(this.username, this.password).then((res) => {
+        console.log(res);
+      });
+    },
     clearInput() {
       this.username = "";
       this.password = "";

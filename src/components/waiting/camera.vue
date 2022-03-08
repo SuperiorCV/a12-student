@@ -5,6 +5,7 @@
       :visible.sync="visible"
       @close="onCancel"
       width="1065px"
+      :append-to-body="true"
     >
       <div class="box">
         <video

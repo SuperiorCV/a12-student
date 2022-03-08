@@ -7,10 +7,6 @@
 <script>
 export default {
   name: 'App',
-  created(){
-    var tip=this.apis.welcome.initData()
-    console.log(tip)
-  }
 }
 </script>
 
