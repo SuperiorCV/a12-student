@@ -22,7 +22,7 @@ export default {
     return {
       totalStudents: 50,
       rank: 1,
-      weakness: '123',
+      weakness: "123",
     };
   },
   mounted() {
@@ -38,12 +38,12 @@ export default {
 
         option = {
           title: {
-            text: '分数分布',
-            left: '40%',
-            top: '5%',
+            text: "分数分布",
+            left: "40%",
+            top: "5%",
           },
           tooltip: {
-            show: true
+            show: true,
           },
           xAxis: {
             max: 12,
@@ -66,27 +66,24 @@ export default {
                 [9, 75.68],
                 [10, 85.68],
                 [11, 95.68],
-                
               ],
-                itemStyle: {
-        normal: {
-            shadowBlur: 10,
-            shadowColor: 'rgba(120, 36, 50, 0.5)',
-            shadowOffsetY: 5,
-            color: function(e){
-              console.log(e)
-              if(e.data[0] === 6){
-                return '#ff7979'
-              }
-              else{
-                return '#00a8ff'
-              }
-
-            }
-        }
-    },
-              type: 'scatter'
-            }
+              itemStyle: {
+                normal: {
+                  shadowBlur: 10,
+                  shadowColor: "rgba(120, 36, 50, 0.5)",
+                  shadowOffsetY: 5,
+                  color: function (e) {
+                    console.log(e);
+                    if (e.data[0] === 6) {
+                      return "#ff7979";
+                    } else {
+                      return "#00a8ff";
+                    }
+                  },
+                },
+              },
+              type: "scatter",
+            },
           ],
         };
 
@@ -102,83 +99,78 @@ export default {
         option = {
           legend: {
             show: true,
-            top: '5%',
-            icon: 'rect',
+            top: "5%",
+            icon: "rect",
             textStyle: {
               fontSize: 15,
             },
-            data: [{
-              name: '年级平均成绩',
-              icon: 'rect',
+            data: [
+              {
+                name: "年级平均成绩",
+                icon: "rect",
               },
-            {
-              name: '你的成绩',
-              icon: 'rect',
-              itemStyle: {
-                    normal: {
-                        color: 'rgba(205,225,0,.3)',
-                        lineStyle: {
-                            color: 'rgba(255,225,0,.3)',
-                        },
+              {
+                name: "你的成绩",
+                icon: "rect",
+                itemStyle: {
+                  normal: {
+                    color: "rgba(205,225,0,.3)",
+                    lineStyle: {
+                      color: "rgba(255,225,0,.3)",
                     },
+                  },
                 },
-
-
-              }],
+              },
+            ],
           },
           radar: {
-            center: ['50%','60%'],
+            center: ["50%", "60%"],
             name: {
-            textStyle: {
-                color: '#fff',
+              textStyle: {
+                color: "#fff",
                 fontSize: 15,
-              }
+              },
             },
-            
+
             indicator: [
-              { name: '单选题', max: 100, color: '#000' },
-              { name: '多选题', max: 100, color: '#000' },
-              { name: '判断题', max: 100, color: '#000' },
-              { name: '排序题', max: 100, color: '#000' },
-              { name: '简答题', max: 100, color: '#000' },
-             
-            ]
+              { name: "单选题", max: 100, color: "#000" },
+              { name: "多选题", max: 100, color: "#000" },
+              { name: "判断题", max: 100, color: "#000" },
+              { name: "排序题", max: 100, color: "#000" },
+              { name: "简答题", max: 100, color: "#000" },
+            ],
           },
           series: [
             {
-              name: 'Budget vs spending',
-              type: 'radar',
-              
+              name: "Budget vs spending",
+              type: "radar",
 
               data: [
-                
                 {
                   value: [80, 70, 60, 50, 40],
-                  name: '年级平均成绩',
-                  itemStyle: {    
-                            color: '#ff7675',
-                            borderColor: '#ff7675',
-                        },
+                  name: "年级平均成绩",
+                  itemStyle: {
+                    color: "#ff7675",
+                    borderColor: "#ff7675",
+                  },
                   areaStyle: {
-                            color: '#ff7675',
-                        },
+                    color: "#ff7675",
+                  },
                 },
                 {
-                  value: [70, 80, 70,60, 50],
-                  name: '你的成绩',
-                  itemStyle: {    
-                            color: '#0097e6',
-                            borderColor: '#0097e6',
-                        },
+                  value: [70, 80, 70, 60, 50],
+                  name: "你的成绩",
+                  itemStyle: {
+                    color: "#0097e6",
+                    borderColor: "#0097e6",
+                  },
                   areaStyle: {
-                            color: '#0097e6',
-                        },
+                    color: "#0097e6",
+                  },
                 },
-
-              ]
-            }
-        ]
-              
+              ],
+            },
+          ],
         };
 
         option && myChart.setOption(option);
@@ -223,7 +215,7 @@ export default {
 .yourAnalyze {
   margin: 0 auto;
   height: 200px;
-  width: 90%;
+  width: 95%;
   border: solid 2px #000;
 }
 .yourAnalyze p {
