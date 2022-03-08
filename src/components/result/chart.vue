@@ -6,7 +6,11 @@
     <div class="main">
       <div id="scoreRank"></div>
       <div id="scoreSpread"></div>
-      <!-- <div class="yourAnalyze">3</div> -->
+      <div class="yourAnalyze">
+        <p class="title">智能分析：</p>
+        <p class="item">你的排名：{{ rank }}/{{ totalStudents }}</p>
+        <p class="item">薄弱项：{{ weakness }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -14,6 +18,13 @@
 <script>
 export default {
   name: "chart",
+  data() {
+    return {
+      totalStudents: 50,
+      rank: 1,
+      weakness: '123',
+    };
+  },
   mounted() {
     this.initscoreRank();
     this.initscoreSpread();
@@ -180,7 +191,7 @@ export default {
 <style scoped>
 #chart {
   width: 100%;
-  height: 500px;
+  height: 800px;
   box-sizing: border-box;
 }
 .header {
@@ -196,6 +207,7 @@ export default {
 .main {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   height: 100%;
   width: 100%;
   /* background: pink; */
@@ -207,5 +219,22 @@ export default {
 #scoreSpread {
   width: 40%;
   height: 400px;
+}
+.yourAnalyze {
+  margin: 0 auto;
+  height: 200px;
+  width: 90%;
+  border: solid 2px #000;
+}
+.yourAnalyze p {
+  margin-left: 40px;
+}
+.yourAnalyze .title {
+  font-size: 25px;
+  font-weight: 700;
+}
+.yourAnalyze .item {
+  font-size: 20px;
+  font-weight: 700;
 }
 </style>
