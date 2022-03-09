@@ -148,6 +148,7 @@ export default {
         }
       }
     },
+
   },
   computed: {
     countDown() {
@@ -230,7 +231,7 @@ export default {
         {
           id: 5,
           title: "校内选拔",
-          startTime: "2022-03-09 00:00",
+          startTime: "2022-03-10 00:00",
           endTime: "2022-03-12 00:00",
           subject: "数据库",
           duration: "2h",
