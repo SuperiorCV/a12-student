@@ -1,6 +1,12 @@
 <template>
   <div id="testing">
-      <Vcode  sliderText="拖动滑块完成试卷提交" :show="isShow" @success="success" @close="close"></Vcode>
+    <screenShot ref="screenShot"></screenShot>
+    <Vcode
+      sliderText="拖动滑块完成试卷提交"
+      :show="isShow"
+      @success="success"
+      @close="close"
+    ></Vcode>
     <div id="l-side" class="animate__animated animate__fadeInLeft">
       <h3>{{ exam.title }}</h3>
       <div class="info">
@@ -52,11 +58,13 @@
 
 
 <script>
+import screenShot from "@/components/testing/screenShot.vue";
 import QuestionShow from "@/components/testing/questionShow.vue";
 import Vcode from "vue-puzzle-vcode";
 export default {
   name: "testing",
   components: {
+    screenShot,
     QuestionShow,
     Vcode,
   },
@@ -67,6 +75,41 @@ export default {
     setInterval(function () {
       that.extra = that.countdown(localStorage.getItem("submitTime"));
     }, 1000);
+    setInterval(function () {
+      that.$refs.screenShot.getCompetence();
+    }, that.exam.duration / 10*60000);
+    this.$nextTick(() => {
+      // 禁用右键
+      // document.oncontextmenu = new Function("event.returnValue=false");
+      // // 禁用选择
+      // document.onselectstart = new Function("event.returnValue=false");
+      // // 禁用f12
+      // document.οnkeydοwn = new Function("event.returnValue=false");
+      // // 上面的禁止f12那段代码没有生效，但是加了下面这段就能生效。
+      // document.onkeydown = function (e) {
+      //   if (e && e.keyCode === 123) {
+      //     e.returnValue = false;
+      //     // e.keyCode = 0   //去掉也可以的，倘若要写，则需要setter 以及 getter配合使用，不配合，会报错
+      //     return false;
+      //   }
+      // };
+    });
+  },
+  destroyed() {
+    // 禁用右键
+    document.oncontextmenu = new Function("event.returnValue=true");
+    // 禁用选择
+    document.onselectstart = new Function("event.returnValue=true");
+    // 禁用f12
+    document.οnkeydοwn = new Function("event.returnValue=true");
+    // 上面的禁止f12那段代码没有生效，但是加了下面这段就能生效。
+    document.onkeydown = function (e) {
+      if (e && e.keyCode === 123) {
+        e.returnValue = true;
+        // e.keyCode = 0   //去掉也可以的，倘若要写，则需要setter 以及 getter配合使用，不配合，会报错
+        return true;
+      }
+    };
   },
   data() {
     return {
