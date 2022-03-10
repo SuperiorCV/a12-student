@@ -64,7 +64,6 @@ export default {
           body: data, //请求体
         };
         this.loading = true;
-        console.log(conversions);
         // fetch("apis/face/verify/", options)
         //   .then((res) => res.json())
         //   .then((data) => {

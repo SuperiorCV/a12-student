@@ -145,13 +145,10 @@ export default {
           let username =  this.$route.params.username;
           let email =  this.$route.params.email;
           let password =  this.$route.params.password;
-
           this.$refs.uploader.submit();
-
           this.apis.welcome.register(this.ruleForm, this.avatar, username, email, password).then((res) => {
             console.log(res);
           });
-          alert("submit!");
         } else {
           console.log("error submit!!");
           return false;
@@ -170,7 +167,7 @@ export default {
       const isLt2M = file.size / 1024 / 1024 < 2;
       
       this.avatar = file;
-
+      this.imageUrl=URL.createObjectURL(file)
       if (!isJPG) {
         this.$message.error("上传头像图片只能是 JPG 格式!");
       }
