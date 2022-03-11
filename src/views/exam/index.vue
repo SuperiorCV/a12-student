@@ -109,6 +109,9 @@ export default {
     setInterval(function () {
       that.updateData();
     }, 1000);
+    this.apis.exam.getExam(sessionStorage.getItem("username")).then((res) => {
+      console.log(res);
+    })
   },
   methods: {
     exam() {

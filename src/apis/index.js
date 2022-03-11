@@ -4,6 +4,8 @@ import axios from 'axios'
 import * as welcome from './welcome.js'
 import * as homepage from './homepage.js'
 import * as message from './message.js'
+import * as myinfo from './myinfo.js'
+import * as exam from './exam.js'
 // axios.defaults=
 axios.defaults.baseURL = 'http://172.23.210.122:8080/';
 axios.defaults.timeout = 90000;
@@ -43,6 +45,8 @@ const apis={
     welcome,
     homepage,
     message,
+    myinfo,
+    exam,
 }
 export default apis
 
