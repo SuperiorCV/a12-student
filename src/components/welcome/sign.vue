@@ -93,9 +93,11 @@ export default {
           if (this.rememberme) {
             localStorage.setItem("username", this.username);
             localStorage.setItem("password", this.password);
+            sessionStorage.setItem("username",this.username);
           } else {
             localStorage.removeItem("username");
             localStorage.removeItem("password");
+            sessionStorage.setItem("username",this.username);
           }
           this.$router.push({name: 'homepage'})
         }

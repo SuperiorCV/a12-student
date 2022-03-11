@@ -36,8 +36,8 @@
               alt=""
             />
             <div class="info">
-              <strong>郎少主~</strong>
-              <p class="username">1422257646</p>
+              <strong>{{ this.studentInfo.name }}</strong>
+              <p class="username">{{ this.studentInfo.username }}</p>
             </div>
           </div>
           <div class="bottom" @click="myzone">前往个人空间</div>
@@ -61,7 +61,7 @@
                   clip-rule="evenodd"
                 ></path></svg
               ><span class="subtitle">征战时长</span
-              ><span class="content">30h</span>
+              ><span class="content">{{ this.myTime }}</span>
             </div>
             <div class="b-content">
               <el-progress :percentage="70" status="success"></el-progress>
@@ -84,7 +84,7 @@
                   clip-rule="evenodd"
                 ></path></svg
               ><span class="subtitle">战役次数</span
-              ><span class="content">20</span>
+              ><span class="content">{{ this.studentInfo.warTimes }}</span>
             </div>
             <div class="b-content">
               <span class="one">昨日</span><span class="two">+0</span>
@@ -107,7 +107,7 @@
                   clip-rule="evenodd"
                 ></path></svg
               ><span class="subtitle">战胜题数</span
-              ><span class="content">506</span>
+              ><span class="content">{{ this.studentInfo.questions }}</span>
             </div>
             <div class="b-content">
               <span class="one">昨日</span><span class="two">+0</span>
@@ -130,7 +130,7 @@
                   clip-rule="evenodd"
                 ></path></svg
               ><span class="subtitle">已斩错题</span
-              ><span class="content">7</span>
+              ><span class="content">{{ this.studentInfo.overcomes }}</span>
             </div>
             <div class="b-content">
               <span class="one">昨日</span><span class="two">+2</span>
@@ -141,15 +141,15 @@
         <div class="description">
           <div class="element">
             <i class="fad fa-venus-mars"></i>
-            <span>男</span>
+            <span>{{ this.studentInfo.sex }}</span>
           </div>
           <div class="element">
             <i class="fad fa-house"></i>
-            <span>天津大学</span>
+            <span>{{ this.studentInfo.school }}</span>
           </div>
           <div class="element">
             <i class="fad fa-mailbox"></i>
-            <span>1422257646@qq.com</span>
+            <span>{{ this.studentInfo.email }}</span>
           </div>
         </div>
         <p class="title">擅长技能</p>
@@ -169,6 +169,33 @@ export default {
   components: {
     sidebar,
   },
+  created() {
+    this.apis.homepage
+      .getInfo(sessionStorage.getItem("username"))
+      .then((res) => {
+        if (res.status === 200) {
+          let data = res.data.result;
+          this.studentInfo.name = data.name;
+          this.studentInfo.username = data.username;
+          this.studentInfo.warTimes = data.warTimes;
+          this.studentInfo.accuracy = data.accuracy;
+          this.studentInfo.averagePoint = data.averagePoint;
+          this.studentInfo.excellent = data.excellent;
+          this.studentInfo.overcomes = data.overcomes;
+          this.studentInfo.questions = data.questions;
+          this.studentInfo.velocity = data.velocity;
+          this.studentInfo.warTimes = data.warTimes;
+          this.studentInfo.school = data.school;
+          this.studentInfo.sex = data.sex;
+          this.studentInfo.email = data.email;
+          this.studentInfo.avatarPath =
+            "https://sexam.static.cheeseburgerim.space" + data.avatarPath;
+          this.studentInfo.registerTime = data.registerTime;
+
+          this.initDate();
+        }
+      });
+  },
   mounted() {
     var that = this;
     setTimeout(function () {
@@ -181,6 +208,8 @@ export default {
       centerDialogVisible: false,
       dialogMessage: `如果要退出,当前未保存的操作将无法保留,您确定要登出账号吗❓`,
       checked: false,
+      studentInfo: {},
+      myTime: "",
     };
   },
   methods: {
@@ -192,6 +221,45 @@ export default {
     },
     myzone() {
       this.$router.push({ name: "myinfo" });
+    },
+    initDate() {
+      var date = this.studentInfo.registerTime;
+      date = date.replace(new RegExp("-", "gm"), "/");
+      var dateTimeStamp = new Date(date).getTime();
+      let minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
+      let hour = minute * 60;
+      let day = hour * 24;
+      let week = day * 7;
+      // let halfamonth = day * 15;
+      let month = day * 30;
+
+      let now = new Date().getTime(); //获取当前时间毫秒
+      let diffValue = now - dateTimeStamp; //时间差
+
+      if (diffValue < 0) {
+        return;
+      }
+
+      let minC = diffValue / minute; //计算时间差的分，时，天，周，月
+      let hourC = diffValue / hour;
+      let dayC = diffValue / day;
+      let weekC = diffValue / week;
+      let monthC = diffValue / month;
+      let result;
+      if (monthC >= 1) {
+        result = "" + parseInt(monthC) + "天";
+      } else if (weekC >= 1) {
+        result = "" + parseInt(weekC) + "周";
+      } else if (dayC >= 1) {
+        result = "" + parseInt(dayC) + "天";
+      } else if (hourC >= 1) {
+        result = "" + parseInt(hourC) + "小时";
+      } else if (minC >= 1) {
+        result = "" + parseInt(minC) + "分钟";
+      } else {
+        result = "不足一分钟";
+      }
+      this.myTime = result;
     },
     initChart() {
       this.$nextTick(function () {
@@ -231,7 +299,12 @@ export default {
               areaStyle: {},
               data: [
                 {
-                  value: [60, 73, 95, 40],
+                  value: [
+                    this.studentInfo.accuracy,
+                    this.studentInfo.averagePoint,
+                    this.studentInfo.velocity,
+                    this.studentInfo.excellent,
+                  ],
                   // name: 'A Software'
                 },
               ],
