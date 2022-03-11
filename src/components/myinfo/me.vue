@@ -102,9 +102,10 @@ export default {
       command: "",
       result: [
         {
+          command: "",
           name: "数据库1班",
-          teacher: "郎文翀",
-          num: 90,
+          teacher: "郎文翀",//teacherUsername
+          num: 90,//
         },
       ],
       arr: [

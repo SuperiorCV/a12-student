@@ -12,67 +12,44 @@ export default {
     };
   },
   created() {
-    this.loadCalendar();
+    //1,3,5,7,8,10,12
+    const days = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var now = new Date();
+    var year = now.getFullYear() - 1; //去年
+    var month = now.getMonth() + 1; //月
+    var day = now.getDate(); //日
+    var twice = false;
+    for (var i = month; !twice || i < month + 1; i++) {
+      if (i > 12) {
+        i -= 12;
+        twice = true;
+        year += 1;
+      }
+      for (let j = 1; j <= days[i]; j++) {
+        if (i === month && twice && j === day + 1) {
+          break;
+        }
+        var date = year + "-";
+        if (i < 10) date += "0";
+        date += i + "-";
+        if (j < 10) date += "0";
+        date += j;
+        this.dateMap.push([date, 0]);
+        if (
+          ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) &&
+          i == 2 &&
+          j === 28
+        ) {
+          //闰年
+          this.dateMap.push([year + "-02-28", 0]);
+        }
+      }
+    }
+
+    this.apis.myInfo.getActivity(sessionStorage.getItem("username")).then((res) => {
+      console.log(res);
+    });
   },
-  //   created() {
-  //     //1,3,5,7,8,10,12
-  //     const days = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  //     var now = new Date();
-  //     var year = now.getFullYear() - 1; //去年
-  //     var month = now.getMonth() + 1; //月
-  //     var day = now.getDate(); //日
-  //     var twice = false;
-  //     for (var i = month; !twice || i < month + 1; i++) {
-  //       if (i > 12) {
-  //         i -= 12;
-  //         twice = true;
-  //         year += 1;
-  //       }
-  //       for (let j = 1; j <= days[i]; j++) {
-  //         if (i === month && twice && j === day + 1) {
-  //           break;
-  //         }
-  //         var date = year + "-";
-  //         if (i < 10) date += "0";
-  //         date += i + "-";
-  //         if (j < 10) date += "0";
-  //         date += j;
-  //         this.dateMap.push([date, 0]);
-  //         if (
-  //           ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) &&
-  //           i == 2 &&
-  //           j === 28
-  //         ) {
-  //           //闰年
-  //           this.dateMap.push([year + "-02-28", 0]);
-  //         }
-  //       }
-  //     }
-  //     const url = `/apis/user/api/getAct?username=langwenchong`;
-  //     fetch(url, {
-  //       method: "GET",
-  //     })
-  //       .then((res) => {
-  //         console.log(res);
-  //         return res.json();
-  //       })
-  //       .then((data) => {
-  //         for (let i = 0; i < this.dateMap.length; i++) {
-  //           for (let k = 0; k < data.length; k++) {
-  //             if (this.dateMap[i][0] === data[k].id.date) {
-  //               if (0 < data[k].times && data[k].times <= 3)
-  //                 this.dateMap[i][1] = 1;
-  //               else if (3 < data[k].times && data[k].times <= 6)
-  //                 this.dateMap[i][1] = 2;
-  //               else if (6 < data[k].times && data[k].times <= 9)
-  //                 this.dateMap[i][1] = 3;
-  //               else this.dateMap[i][1] = 4;
-  //             }
-  //           }
-  //         }
-  //         this.load_calendar();
-  //       });
-  //   },
   methods: {
     loadCalendar() {
       this.$nextTick(function () {
