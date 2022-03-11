@@ -4,7 +4,8 @@ import axios from 'axios'
 import * as welcome from './welcome.js'
 import * as homepage from './homepage.js'
 import * as message from './message.js'
-import * as myInfo from './myInfo.js'
+import * as myinfo from './myinfo.js'
+import * as exam from './exam.js'
 // axios.defaults=
 axios.defaults.baseURL = 'http://172.23.19.149:8080/';
 axios.defaults.timeout = 90000;
@@ -40,10 +41,11 @@ axios.interceptors.response.use(
   }
 )
 // 暴露给外部以便调用，此时所有的api方法整合到了一起形成一个对象命名为apis
-const apis = {
-  welcome,
-  homepage,
-  message,
-  myInfo
+const apis={
+    welcome,
+    homepage,
+    message,
+    myinfo,
+    exam,
 }
 export default apis

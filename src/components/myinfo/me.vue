@@ -39,7 +39,7 @@
             <el-button
               class="joinButton"
               type="primary"
-              @click="joinClass()"
+              @click="searchClass()"
               round
               >搜索</el-button
             >
@@ -50,17 +50,23 @@
             :key="idx"
           >
             <div class="title">
-              <span @click="goto(idx)">
+              <span>
                 <i class="fad fa-users"></i>
-                <b>{{ box.name }}</b>
+                <b>{{ box.cname }}</b>
               </span>
             </div>
-            <p class="info"><b>教学老师：</b>{{ box.teacher }}</p>
+            <p class="info"><b>教学老师：</b>{{ box.username }}</p>
             <div id="status">
-              <div class="point" v-state="box.num"></div>
-              <span>{{ box.num }}人</span>
+              <div class="point" v-state="box.studentNumber"></div>
+              <span>{{ box.studentNumber }}人</span>
             </div>
-            <el-button type="success" plain class="joinClass">加入班级</el-button>
+            <el-button
+              type="success"
+              plain
+              @click="joinClass(box.command)"
+              class="joinClass"
+              >加入班级</el-button
+            >
           </div>
         </el-dialog>
       </div>
@@ -71,15 +77,15 @@
           :key="idx"
         >
           <div class="title">
-            <span @click="goto(idx)">
+            <span>
               <i class="fad fa-users"></i>
-              <b>{{ box.name }}</b>
+              <b>{{ box.cname }}</b>
             </span>
           </div>
-          <p class="info"><b>教学老师：</b>{{ box.teacher }}</p>
+          <p class="info"><b>教学老师：</b>{{ box.username }}</p>
           <div id="status">
-            <div class="point" v-state="box.num"></div>
-            <span>{{ box.num }}人</span>
+            <div class="point" v-state="box.studentNumber"></div>
+            <span>{{ box.studentNumber }}人</span>
           </div>
         </div>
       </div>
@@ -97,49 +103,20 @@ export default {
     calendar,
     history,
   },
+  created() {
+    this.apis.myinfo
+      .getStudentClass(sessionStorage.getItem("username"))
+      .then((res) => {
+        if (res.data.status === 200) {
+          this.arr = res.data.result;
+        }
+      });
+  },
   data() {
     return {
       command: "",
-      result: [
-        {
-          command: "",
-          name: "数据库1班",
-          teacher: "郎文翀",//teacherUsername
-          num: 90,//
-        },
-      ],
-      arr: [
-        {
-          name: "数据库1班",
-          teacher: "郎文翀",
-          num: 90,
-        },
-        {
-          name: "高等数学5班",
-          teacher: "C罗",
-          num: 40,
-        },
-        {
-          name: "数据库1班",
-          teacher: "郎文翀",
-          num: 110,
-        },
-        {
-          name: "高等数学5班",
-          teacher: "C罗",
-          num: 73,
-        },
-        {
-          name: "数据库1班",
-          teacher: "郎文翀",
-          num: 110,
-        },
-        {
-          name: "高等数学5班",
-          teacher: "C罗",
-          num: 40,
-        },
-      ],
+      result: [],
+      arr: [],
 
       dialogFormVisible: false,
 
@@ -160,7 +137,31 @@ export default {
       }
     },
   },
-  methods: {},
+  methods: {
+    searchClass() {
+      this.apis.myinfo.searchClass(this.command).then((res) => {
+        console.log(res);
+        if (res.data.status === 200) {
+          this.result = res.data.result;
+        }
+      });
+    },
+    joinClass(command) {
+      this.apis.myinfo
+        .joinClass(sessionStorage.getItem("username"), command)
+        .then((res) => {
+          if (res.data.status === 200) {
+            this.arr.push(res.data.result);
+            console.log(res);
+            this.$message({
+              message: "成功加入班级！",
+              type: "success",
+            });
+            this.dialogFormVisible = false;
+          }
+        });
+    },
+  },
 };
 </script>
 
@@ -303,7 +304,7 @@ h2 {
   width: 180px;
   margin-bottom: 20px;
 }
-.joinClass{
+.joinClass {
   position: absolute;
   right: 10%;
   top: 50%;

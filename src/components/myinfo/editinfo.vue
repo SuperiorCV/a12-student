@@ -186,10 +186,22 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$message({
-            message: "更新成功",
-            type: "success",
-          });
+          this.apis.myinfo
+            .editInfo(
+              sessionStorage.getItem("username"),
+              this.form.name,
+              this.form.sex,
+              this.form.eamil,
+              this.form.school
+            )
+            .then((res) => {
+              if (res.data.status === 200) {
+                this.$message({
+                  message: "更新成功",
+                  type: "success",
+                });
+              }
+            });
         } else {
           this.$message.error("更新失败");
         }
@@ -199,12 +211,26 @@ export default {
     submitPwdForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$message({
-            message: "修改密码成功",
-            type: "success",
-          });
-        } else {
-          this.$message.error("修改密码失败");
+          this.apis.myinfo
+            .editPwd(
+              sessionStorage.getItem("username"),
+              this.passwordForm.oldPwd,
+              this.passwordForm.newPwd
+            )
+            .then((res) => {
+              console.log(res);
+              if (res.data.status === 200) {
+                this.$message({
+                  message: "修改密码成功",
+                  type: "success",
+                });
+              } else if (res.data.status === 403) {
+                this.$notify.error({
+                  title: "错误",
+                  message: "旧密码错误，认证失败！",
+                });
+              }
+            });
         }
       });
     },
