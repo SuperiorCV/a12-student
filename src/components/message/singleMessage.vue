@@ -6,17 +6,17 @@
           <div class="title">
             {{ mes.title }}
           </div>
-          <div :class="[mes.state === 1 ? 'state green' : 'state red']">
-            {{ mes.state === 1 ? "已读" : "未读" }}
+          <div :class="[mes.mstate === 1 ? 'state green' : 'state red']">
+            {{ mes.mstate === 1 ? "已读" : "未读" }}
           </div>
-          <div class="date">{{ mes.date }}</div>
+          <div class="date">{{ mes.myDate }}</div>
         </template>
         <div class="content">
-          <div>{{ mes.msg }}</div>
-          <div v-if="mes.type == 'class'">
+          <div>{{ mes.content }}</div>
+          <div v-if="mes.mtype == 'class'">
             <el-button type="text">同意加入</el-button>
           </div>
-          <div v-else-if="mes.type == 'test'">
+          <div v-else-if="mes.mtype == 'test'">
             <el-button type="text">查看试卷</el-button>
           </div>
         </div>
@@ -42,11 +42,13 @@ export default {
     readed() {
       var that = this;
       setTimeout(() => {
-        that.mes.state = 1;
+        that.mes.mstate = 1;
       }, 300);
+
+      this.apis.message.read(that.mes.id.mid).then((res) => {});
     },
     initDate() {
-      var date = this.mes.date;
+      var date = this.mes.mdate;
       date = date.replace(new RegExp("-", "gm"), "/");
       var dateTimeStamp = new Date(date).getTime();
       let minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
@@ -82,7 +84,7 @@ export default {
       } else {
         result = " Just Now";
       }
-      this.mes.date = result;
+      this.mes.myDate = result;
     },
   },
 };
@@ -123,7 +125,7 @@ export default {
   color: rgb(78, 194, 116);
 }
 
-.content{
+.content {
   display: flex;
   justify-content: space-between;
   align-items: center;

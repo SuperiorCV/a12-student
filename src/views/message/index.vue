@@ -13,13 +13,15 @@
         <transition-group appear v-if="messages.length > 0">
           <single-message
             v-for="message in messages"
-            :key="message.id"
+            :key="message.id.mid"
             :message="message"
           >
           </single-message>
         </transition-group>
       </div>
-      <div class="nomore-messages" v-if="messages.length <= 0"><h1><i class='fas fa-engine-warning'></i> 您暂时没有接收到任何消息</h1></div>
+      <div class="nomore-messages" v-if="messages.length <= 0">
+        <h1><i class="fas fa-engine-warning"></i> 您暂时没有接收到任何消息</h1>
+      </div>
     </div>
   </div>
 </template>
@@ -33,90 +35,33 @@ export default {
   components: {
     singleMessage,
   },
+  created() {
+    this.apis.message
+      .getMessage(sessionStorage.getItem("username"))
+      .then((res) => {
+        let myMessage = res.data.result;
+        for (let i = 0; i < myMessage.length; i++) {
+          this.messages.push(myMessage[i]);
+        }
+      });
+  },
   methods: {
     readAll() {
       for (let i = 0; i < this.messages.length; i++) {
-        this.messages[i].state = 1;
+        if (this.messages[i].mstate === 0) {
+          let Id = this.messages[i].id.mid;
+          this.apis.message.read(Id).then((res) => {
+            if(res.status === 200){
+              this.messages[i].mstate = 1;
+            }
+          });
+        }
       }
     },
   },
   data() {
     return {
-      messages: [
-        {
-          id: "1",
-          title: "消息1",
-          date: "2022-01-11 17:56:25",
-          msg: "文翀老师邀请你加入数据库2班",
-          state: 0,
-          type:'class',
-        },
-        {
-          id: "2",
-          title: "消息2",
-          date: "2021-02-3 17:56:25",
-          msg: "国涛老师邀请你加入国学素养选修班",
-          state: 1,
-          type:'class',
-        },
-        {
-          id: "3",
-          title: "消息3",
-          date: "2022-02-10 18:19:25",
-          msg: "黄硕老师邀请你加入计算机组成原理2班",
-          state: 0,
-          type:'class',
-        },
-        { 
-          id: "4",
-          title: "消息4",
-          date: "2022-02-11 16:56:25",
-          msg: "您的第四次高等数学单元测验已经批改完成",
-          state: 0,
-          type:'test',
-        },
-        {
-          id: "5",
-          title: "消息5",
-          date: "2022-02-11 18:20:25",
-          msg: "阿巴",
-          state: 0,
-          type:'other',
-        },
-        {
-          id: "6",
-          title: "消息6",
-          date: "2022-02-11 18:22:25",
-          msg: "阿巴",
-          type:"class",
-          state: 0,
-          type:'other',
-        },
-        {
-          id: "7",
-          title: "消息7",
-          date: "2022-02-11 16:56:25",
-          msg: "阿巴",
-          state: 0,
-          type:'other',
-        },
-        {
-          id: "8",
-          title: "消息8",
-          date: "2022-01-11 17:56:25",
-          msg: "阿巴",
-          state: 0,
-          type:'other',
-        },
-        {
-          id: "9",
-          title: "消息9",
-          date: "2022-01-11 17:56:25",
-          msg: "阿巴",
-          state: 0,
-          type:'other',
-        },
-      ],
+      messages: [],
     };
   },
 };
