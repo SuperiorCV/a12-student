@@ -110,8 +110,20 @@ export default {
       that.updateData();
     }, 1000);
     this.apis.exam.getExam(sessionStorage.getItem("username")).then((res) => {
-      console.log(res);
-    })
+      if (res.data.status === 200) {
+        var result = res.data.result;
+        for (let i = 0; i < result.length; i++) {
+          var obj = {};
+          obj.id = result[i].eid;
+          obj.title = result[i].title;
+          obj.startTime = result[i].startTime;
+          obj.endTime = result[i].endTime;
+          obj.duration = result[i].duration;
+          obj.subject = result[i].course;
+          this.arr.push(obj);
+        }
+      }
+    });
   },
   methods: {
     exam() {
@@ -151,7 +163,6 @@ export default {
         }
       }
     },
-
   },
   computed: {
     countDown() {
@@ -190,56 +201,7 @@ export default {
       ready: null,
       ongoing: [],
       extraList: [],
-      arr: [
-        {
-          id: 0,
-          title: "精英班选拔考试",
-          startTime: "2022-02-12 09:30",
-          endTime: "2022-02-21 09:30",
-          subject: "高等数学(2A)",
-          duration: "3h",
-        },
-        {
-          id: 1,
-          title: "第一次质量检测",
-          startTime: "2022-02-12 09:30",
-          endTime: "2022-02-21 09:30",
-          subject: "计算机系统基础",
-          duration: "1h",
-        },
-        {
-          id: 2,
-          title: "第二次月考",
-          startTime: "2022-02-12 11:30",
-          endTime: "2022-02-21 09:30",
-          subject: "计算机网络",
-          duration: "1h",
-        },
-        {
-          id: 3,
-          title: "月末考核",
-          startTime: "2022-02-21 09:30",
-          endTime: "2022-02-24 09:30",
-          subject: "操作系统",
-          duration: "1h",
-        },
-        {
-          id: 4,
-          title: "小学期测验",
-          startTime: "2022-03-09 00:00",
-          endTime: "2022-03-10 00:00",
-          subject: "数据库",
-          duration: "30min",
-        },
-        {
-          id: 5,
-          title: "校内选拔",
-          startTime: "2022-03-10 00:00",
-          endTime: "2022-03-12 00:00",
-          subject: "数据库",
-          duration: "2h",
-        },
-      ],
+      arr: [],
     };
   },
 };

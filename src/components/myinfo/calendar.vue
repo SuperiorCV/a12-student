@@ -46,9 +46,9 @@ export default {
       }
     }
 
-    this.apis.myInfo.getActivity(sessionStorage.getItem("username")).then((res) => {
-      console.log(res);
-    });
+    // this.apis.myinfo.getActivity(sessionStorage.getItem("username")).then((res) => {
+    //   console.log(res);
+    // });
   },
   methods: {
     loadCalendar() {
