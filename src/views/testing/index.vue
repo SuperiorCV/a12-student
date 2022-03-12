@@ -259,10 +259,10 @@ export default {
         var questionList = this.exam.modules[i].questionList;
         for (let j = 0; j < questionList.length; j++) {
           var question = questionList[j];
-          var myQ={};
-          myQ.qid=question.id;
-          myQ.qtype=question.questionType;
-          myQ.answer=question.studentAnswer;
+          var myQ = {};
+          myQ.qid = question.id;
+          myQ.qtype = question.questionType;
+          myQ.answer = question.studentAnswer;
           if (question.questionType === 2) {
             var answer = "";
             for (let i = 0; i < question.studentAnswer.length; i++) {
@@ -272,20 +272,32 @@ export default {
           } else if (question.questionType === 5) {
             var answer = "";
             for (let i = 0; i < question.studentAnswer.length; i++) {
-              answer +=question.studentAnswer[i].prefix;
+              answer += question.studentAnswer[i].prefix;
             }
             myQ.answer = answer;
           }
           ans.push(myQ);
         }
       }
-      console.log(ans);
-      this.apis.exam.submit(sessionStorage.getItem("username"),sessionStorage.getItem("eid"),ans).then(res=>{
-        console.log(res);
-        if(res.status===200){
-          console.log('hhh')
-        }
-      })
+      // console.log(ans);
+      this.apis.exam
+        .submit(
+          sessionStorage.getItem("username"),
+          sessionStorage.getItem("eid"),
+          ans
+        )
+        .then((res) => {
+          // console.log(res);
+          if (res.status === 200) {
+            sessionStorage.removeItem("eid");
+            this.$router.push({ name: "homepage" });
+            this.$notify({
+              title: "成功",
+              message: "试卷提交成功，祝你取得好成绩！",
+              type: "success",
+            });
+          }
+        });
     },
     // 用户点击遮罩层，应该关闭模态框
     close() {
