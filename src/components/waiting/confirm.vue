@@ -83,7 +83,13 @@ export default {
       if (this.active++ > 2) this.active = 0;
     },
     startExam() {
-      this.$router.push({ name: "testing" });
+      this.apis.waiting.startExam(sessionStorage.getItem("eid"),sessionStorage.getItem("username")).then((res) => {
+        if(res.data.status === 200){
+          console.log(res);
+          this.$router.push({ name: "testing" });
+        }
+      })
+      
     },
     activeMotivation(){
       this.active = 2;

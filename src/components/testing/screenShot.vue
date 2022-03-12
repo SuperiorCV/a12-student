@@ -54,39 +54,11 @@ export default {
         const time = new Date().valueOf(); //生成时间戳
         const name = time + ".jpg"; // 定义文件名字（例如：abc.png ， cover.png）
         const conversions = this.dataURLtoFile(file, name); // 调用base64转图片方法
-        const stuId = this.id;
-        const data = new FormData();
-        data.append("face", conversions);
-        data.append("student_id", stuId);
-        // console.log(data)
-        const options = {
-          method: "POST", //请求方法
-          body: data, //请求体
-        };
-        this.loading = true;
-        // fetch("apis/face/verify/", options)
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     console.log(data);
-        //     this.loading = false;
-        //     this.onCancel();
-        //     if (data.verify_correct == "false") {
-        //       this.$notify.error({
-        //         title: "上传失败",
-        //       });
-        //     } else {
-        //       this.$notify({
-        //         title: "上传成功",
-        //         type: "success",
-        //       });
-        //     }
-        //   })
-        //   .catch((error) => {
-        //     this.loading = false;
-        //     this.$notify.error({
-        //       title: "上传失败",
-        //     });
-        //   });
+        this.apis.testing.store(sessionStorage.getItem("eid"),sessionStorage.getItem("username"),conversions).then((res) => {
+          if(res.data.status === 200){
+            console.log(res);
+          }
+        })
         this.stopNavigator();
       } else {
         this.getCompetence();

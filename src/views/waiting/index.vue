@@ -44,7 +44,7 @@
       </div>
       <div class="tips">
         <h2>●考试注意事项：</h2>
-        {{exam.tips}}
+        {{ exam.tips }}
       </div>
       <div class="confirm">
         <camera></camera>
@@ -69,6 +69,7 @@ export default {
   },
   created() {
     this.eid = this.$route.params.eid;
+    sessionStorage.setItem("eid", this.eid);
     // console.log(eid)
     this.apis.waiting.getExamInfo(this.eid).then((res) => {
       // console.log(res);
@@ -84,11 +85,11 @@ export default {
       this.exam = myExam;
       // console.log(this.exam);
     });
-    sessionStorage.setItem("eid",this.eid)
+    sessionStorage.setItem("eid", this.eid);
   },
   data() {
     return {
-      eid:"",
+      eid: "",
       exam: null,
     };
   },
