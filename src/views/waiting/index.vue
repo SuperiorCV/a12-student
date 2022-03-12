@@ -42,6 +42,10 @@
           </li>
         </ol>
       </div>
+      <div class="tips">
+        <h2>●考试注意事项：</h2>
+        {{exam.tips}}
+      </div>
       <div class="confirm">
         <camera></camera>
         <confirm></confirm>
@@ -57,22 +61,33 @@ import confirm from "@/components/waiting/confirm.vue";
 import camera from "@/components/waiting/camera.vue";
 export default {
   name: "waiting",
-  components: { FlipCountdown, confirm, camera},
+  components: { FlipCountdown, confirm, camera },
   methods: {
     backup() {
       this.$router.push({ name: "exam" });
     },
   },
+  created() {
+    var eid = this.$route.params.eid;
+    // console.log(eid)
+    this.apis.waiting.getExamInfo(eid).then((res) => {
+      // console.log(res);
+      let data = res.data.result.exam;
+      var myExam = {};
+      myExam.id = data.eid;
+      myExam.title = data.title;
+      myExam.startTime = data.startTime;
+      myExam.endTime = data.endTime;
+      myExam.subject = data.course;
+      myExam.tips = data.tips;
+      myExam.duration = data.duration;
+      this.exam = myExam;
+      // console.log(this.exam);
+    });
+  },
   data() {
     return {
-      exam: {
-        id: 0,
-        title: "精英班选拔考试",
-        startTime: "2022-02-12 09:30",
-        endTime: "2022-02-21 09:30",
-        subject: "高等数学(2A)",
-        duration: "3h",
-      },
+      exam: null,
     };
   },
 };
@@ -121,6 +136,7 @@ export default {
   align-items: center;
 }
 .tips {
+  margin-bottom: 10px;
   background: #eee;
   width: 100%;
   /* min-height: 200px; */

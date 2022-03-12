@@ -37,5 +37,11 @@ export const getStudentClass = (username) => {
   return axios.post('/class/api/get/student/class', fd);
 }
 
+export const getHistory = (username) => {
+  let fd = new FormData();
+  fd.append("username",username);
+  return axios.post('/user/api/get/log', fd);
+}
+
 
   
