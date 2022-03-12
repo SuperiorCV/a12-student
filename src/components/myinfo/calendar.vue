@@ -19,7 +19,7 @@ export default {
     var month = now.getMonth() + 1; //月
     var day = now.getDate(); //日
     var twice = false;
-    for (var i = month+1; !twice || i < month + 1; i++) {
+    for (var i = month + 1; !twice || i < month + 1; i++) {
       if (i > 12) {
         i -= 12;
         twice = true;
@@ -45,21 +45,21 @@ export default {
         }
       }
     }
-    // console.log(this.dateMap);
-    this.apis.myinfo.getActivity(sessionStorage.getItem("username")).then((res) => {
-      console.log(res);
-      var data=res.data.result;
-      for(let i=0;i<this.dateMap.length;i++){
-        for(let j=0;j<data.length;j++){
-          if(this.dateMap[i][0]===data[j].id.cdate){
-            // console.log(`hhh`)
-            this.dateMap[i][1]=data[j].activity;
+    this.apis.myinfo
+      .getActivity(sessionStorage.getItem("username"))
+      .then((res) => {
+        if (res.status === 200) {
+          var data = res.data.result;
+          for (let i = 0; i < this.dateMap.length; i++) {
+            for (let j = 0; j < data.length; j++) {
+              if (this.dateMap[i][0] === data[j].id.cdate) {
+                this.dateMap[i][1] = data[j].activity;
+              }
+            }
           }
+          this.loadCalendar();
         }
-      }
-    });
-    this.loadCalendar()
-    console.log(this.dateMap);
+      });
   },
   methods: {
     loadCalendar() {
@@ -108,7 +108,10 @@ export default {
           calendar: [
             {
               left: "center",
-              range: [this.dateMap[0][0], this.dateMap[this.dateMap.length-1][0]],
+              range: [
+                this.dateMap[0][0],
+                this.dateMap[this.dateMap.length - 1][0],
+              ],
               cellSize: [16, 16],
               splitLine: {
                 show: false,
@@ -116,7 +119,7 @@ export default {
               itemStyle: {
                 width: "1.88679%",
                 height: "15px",
-                color: "#8b949e",
+                // color: "#8b949e",
                 borderColor: "#FFF",
                 borderWidth: 2,
               },
@@ -144,7 +147,7 @@ export default {
               type: "heatmap",
               coordinateSystem: "calendar",
               calendarIndex: 0,
-              data:this.dateMap,
+              data: this.dateMap,
             },
           ],
         };

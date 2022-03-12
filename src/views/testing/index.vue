@@ -77,7 +77,7 @@ export default {
     }, 1000);
     setInterval(function () {
       that.$refs.screenShot.getCompetence();
-    }, that.exam.duration / 10*60000);
+    }, (that.exam.duration / 10) * 60000);
     this.$nextTick(() => {
       // 禁用右键
       // document.oncontextmenu = new Function("event.returnValue=false");
@@ -94,6 +94,34 @@ export default {
       //   }
       // };
     });
+    this.apis.exam.getExamInfo(sessionStorage.getItem("eid")).then((res) => {
+      // console.log(res);
+      var data = res.data.result.exam;
+      this.exam.student = sessionStorage.getItem("username");
+      this.exam.fullScore = data.totalScore;
+      this.exam.duration = data.duration;
+      this.exam.title = data.title;
+    });
+
+    this.apis.exam
+      .getQuestionList(sessionStorage.getItem("eid"))
+      .then((res) => {
+        var modules = res.data.result;
+        for (let i = 0; i < modules.length; i++) {
+          var questionList = modules[i].questionList;
+          for (let j = 0; j < questionList.length; j++) {
+            var question = questionList[j];
+            if (question.questionType === 4) {
+              question.studentAnswer = "";
+            } else if (question.questionType === 5) {
+              question.studentAnswer = question.items;
+            } else {
+              question.studentAnswer = [];
+            }
+          }
+        }
+        this.exam.modules = modules;
+      });
   },
   destroyed() {
     // 禁用右键
@@ -124,279 +152,7 @@ export default {
         examClass: [],
         dateMap: [],
         duration: 10,
-        modules: [
-          // 单选题模块
-          {
-            title: "选择题",
-            questionList: [
-              {
-                id: 1,
-                questionType: 1,
-                difficult: 3,
-                // -1表示标题
-                title: "fsfsafsafsfsa",
-                items: [
-                  { prefix: "A", content: "ggg" },
-                  { prefix: "B", content: "gggggg" },
-                  { prefix: "C", content: "aaa" },
-                  { prefix: "D", content: "cccc" },
-                ],
-                status: 1, //-1表示错误，0表示待批改，1表示正确
-                answer: "A",
-                studentAnswer: "C",
-                // -2表示解析
-                analyze: "fsagsagsagsag",
-                score: 1,
-                studentScore: 1,
-              },
-              {
-                id: 2,
-                questionType: 1,
-                difficult: 2,
-                // -1表示标题
-                title: "fsfsfssd",
-                items: [
-                  { prefix: "A", content: "fafsa" },
-                  { prefix: "B", content: "gsagsgs" },
-                  { prefix: "C", content: "faf" },
-                  { prefix: "D", content: "fasfs" },
-                ],
-                status: 0, //-1表示错误，0表示待批改，1表示正确
-                answer: "A",
-                // -2表示解析
-                analyze: "fafsfs",
-                studentAnswer: "C",
-                score: 2,
-                studentScore: 0,
-              },
-              {
-                id: 3,
-                questionType: 1,
-                difficult: 3,
-                // -1表示标题
-                title: "fsfsfss",
-                items: [
-                  { prefix: "A", content: "fsafs" },
-                  { prefix: "B", content: "fsaf" },
-                  { prefix: "C", content: "fsafs" },
-                  { prefix: "D", content: "fsaf" },
-                ],
-                status: 1, //-1表示错误，0表示待批改，1表示正确
-                answer: "D",
-                studentAnswer: "C",
-                // -2表示解析
-                analyze: "",
-                score: 2,
-                studentScore: 2,
-              },
-            ],
-          },
-          {
-            title: "多选题",
-            questionList: [
-              {
-                id: 4,
-                questionType: 2,
-                difficult: 3,
-                // -1表示标题
-                title: "fsfsafsafsfsa",
-                items: [
-                  { prefix: "A", content: "ggg" },
-                  { prefix: "B", content: "gggggg" },
-                  { prefix: "C", content: "aaa" },
-                  { prefix: "D", content: "cccc" },
-                ],
-                status: 1, //
-                answer: ["A", "C", "D"],
-                studentAnswer: ["A", "C", "D"],
-                // -2表示解析
-                analyze: "fsagsagsagsag",
-                score: 1,
-                studentScore: 1,
-              },
-              {
-                id: 5,
-                questionType: 2,
-                difficult: 2,
-                // -1表示标题
-                title: "fsfsfssd",
-                items: [
-                  { prefix: "A", content: "fafsa" },
-                  { prefix: "B", content: "gsagsgs" },
-                  { prefix: "C", content: "faf" },
-                  { prefix: "D", content: "fasfs" },
-                ],
-                status: 1, //-1表示错误，0表示待批改，1表示正确
-                answer: "A",
-                // -2表示解析
-                answer: ["A", "C", "B"],
-                studentAnswer: ["A", "C"],
-                score: 2,
-                studentScore: 0,
-              },
-              {
-                id: 6,
-                questionType: 2,
-                difficult: 3,
-                // -1表示标题
-                title: "fsfsfss",
-                items: [
-                  { prefix: "A", content: "fsafs" },
-                  { prefix: "B", content: "fsaf" },
-                  { prefix: "C", content: "fsafs" },
-                  { prefix: "D", content: "fsaf" },
-                ],
-                status: 1, //-1表示错误，0表示待批改，1表示正确
-                answer: ["A", "C"],
-                studentAnswer: ["A", "C"],
-                // -2表示解析
-                analyze: "SASASASA",
-                score: 2,
-                studentScore: 2,
-              },
-            ],
-          },
-          {
-            title: "判断题",
-            questionList: [
-              {
-                id: 7,
-                questionType: 3,
-                difficult: 3,
-                // -1表示标题
-                title: "fsfsafsafsfsa",
-                items: [
-                  { prefix: "A", content: "正确" },
-                  { prefix: "B", content: "错误" },
-                ],
-                status: 1, //-1表示错误，0表示待批改，1表示正确
-                answer: "A",
-                studentAnswer: "A",
-                // -2表示解析
-                analyze: "fsagsagsagsag",
-                score: 1,
-                studentScore: 1,
-              },
-              {
-                id: 8,
-                questionType: 3,
-                difficult: 2,
-                // -1表示标题
-                title: "fsfsfssd",
-                items: [
-                  { prefix: "A", content: "正确" },
-                  { prefix: "B", content: "错误" },
-                ],
-                status: 0, //-1表示错误，0表示待批改，1表示正确
-                answer: "A",
-                // -2表示解析
-                analyze: "fafsfs",
-                studentAnswer: "B",
-                score: 2,
-                studentScore: 0,
-              },
-              {
-                id: 9,
-                questionType: 3,
-                difficult: 3,
-                // -1表示标题
-                title: "fsfsfss",
-                items: [
-                  { prefix: "A", content: "正确" },
-                  { prefix: "B", content: "错误" },
-                ],
-                status: 1, //-1表示错误，0表示待批改，1表示正确
-                answer: "A",
-                studentAnswer: "B",
-                // -2表示解析
-                analyze: "",
-                score: 2,
-                studentScore: 0,
-              },
-            ],
-          },
-          {
-            title: "简答题",
-            questionList: [
-              {
-                id: 10,
-                questionType: 4,
-                difficult: 3,
-                title: "fsfsfss",
-                status: 0, //-1表示错误，0表示待批改，1表示正确
-                answer: "答案1",
-                studentAnswer: "sddfsssssssssssssssssss",
-                // -2表示解析
-                analyze: "SASASASA",
-                score: 2,
-                studentScore: undefined,
-              },
-              {
-                id: 11,
-                questionType: 4,
-                difficult: 3,
-                // -1表示标题
-                title: "fsfsfss",
-                status: 0, //-1表示错误，0表示待批改，1表示正确
-                answer: "123123",
-                studentAnswer: "rtyui",
-                // -2表示解析
-                analyze: "SASASASA",
-                score: 2,
-                studentScore: undefined,
-              },
-              {
-                id: 12,
-                questionType: 4,
-                difficult: 3,
-                // -1表示标题
-                title: "fsfsfss",
-                status: 0, //-1表示错误，0表示待批改，1表示正确
-                answer: "456",
-                studentAnswer: "oiuttd",
-                // -2表示解析
-                analyze: "SASASASA",
-                score: 2,
-                studentScore: undefined,
-              },
-            ],
-          },
-          {
-            title: "排序题",
-            questionList: [
-              {
-                id: 13,
-                questionType: 5,
-                difficult: 3,
-                // -1表示标题
-                title: "fsfsfss",
-                items: [
-                  { prefix: "A", content: "<pre>A</pre>" },
-                  { prefix: "B", content: "<p>B</p>" },
-                  { prefix: "C", content: "<pre>C</pre>" },
-                  { prefix: "D", content: "<p>D</p>" },
-                ],
-                status: 0, //-1表示错误，0表示待批改，1表示正确
-                answer: [
-                  { prefix: "A", content: "<pre>A</pre>" },
-                  { prefix: "B", content: "<p>B</p>" },
-                  { prefix: "D", content: "<p>D</p>" },
-                  { prefix: "C", content: "<pre>C</pre>" },
-                ],
-                studentAnswer: [
-                  { prefix: "A", content: "<pre>A</pre>" },
-                  { prefix: "B", content: "<p>B</p>" },
-                  { prefix: "C", content: "<pre>C</pre>" },
-                  { prefix: "D", content: "<p>D</p>" },
-                ],
-                // -2表示解析
-                analyze: "SASASASA",
-                score: 2,
-                studentScore: 2,
-              },
-            ],
-          },
-        ],
+        modules: [],
       },
     };
   },
@@ -453,7 +209,8 @@ export default {
       return YY + "-" + MM + "-" + DD + " " + hh + ":" + mm + ":" + ss;
     },
     updateExam(n, o) {
-      if (n.studentAnswer !== `` && n.studentAnswer !== []) {
+      // console.log(n);
+      if (n.studentAnswer != `` && n.studentAnswer != []) {
         n.status = 1;
       } else {
         n.status = 0;
@@ -461,10 +218,12 @@ export default {
       var modules = this.exam.modules;
       for (let i = 0; i < modules.length; i++) {
         var questionList = modules[i].questionList;
-        var idx = questionList.indexOf(o);
-        if (idx !== -1) {
-          questionList[idx] = n;
-          return;
+        // var idx = questionList.indexOf(o);
+        for (let j = 0; j < questionList.length; j++) {
+          if (questionList[j].id === n.id) {
+            questionList[j] = n;
+            return;
+          }
         }
       }
     },
@@ -472,7 +231,7 @@ export default {
       if (status === 1) {
         return `success`;
       } else if (status === 0) {
-        return `info`;
+        return ``;
       }
     },
     goAnchor(id) {
@@ -495,6 +254,28 @@ export default {
     // 用户通过了验证
     success(msg) {
       this.isShow = false; // 通过验证后，需要手动隐藏模态框
+      var ans = [];
+      for (let i = 0; i < this.exam.modules.length; i++) {
+        var questionList = this.exam.modules[i].questionList;
+        for (let j = 0; j < questionList.length; j++) {
+          var question = questionList[j];
+          if (question.questionType === 2) {
+            var answer = "";
+            for (let i = 0; i < question.studentAnswer.length; i++) {
+              answer += question.studentAnswer[i];
+            }
+            question.studentAnswer = answer;
+          } else if (question.questionType === 5) {
+            var answer = "";
+            for (let i = 0; i < question.studentAnswer.length; i++) {
+              answer +=question.studentAnswer[i].prefix;
+            }
+            question.studentAnswer = answer;
+          }
+          ans.push(question);
+        }
+      }
+      console.log(ans);
     },
     // 用户点击遮罩层，应该关闭模态框
     close() {

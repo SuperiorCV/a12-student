@@ -1,7 +1,19 @@
 import axios from 'axios'
 
 export const getExam = (username) => {
-    let fd = new FormData();
-    fd.append("username", username);
-    return axios.post('/exam/api/getExamByUsername', fd);
-  }
+  let fd = new FormData();
+  fd.append("username", username);
+  return axios.post('/exam/api/getExamByUsername', fd);
+}
+
+export const getExamInfo = (eid) => {
+  let fd = new FormData();
+  fd.append("eid", eid);
+  return axios.post('/exam/api/getInfo', fd);
+}
+
+export const getQuestionList = (eid) => {
+  let fd = new FormData();
+  fd.append("eid", eid);
+  return axios.post("/exam/api/getQuestions", fd);
+}
