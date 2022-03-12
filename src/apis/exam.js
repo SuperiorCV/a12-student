@@ -17,3 +17,8 @@ export const getQuestionList = (eid) => {
   fd.append("eid", eid);
   return axios.post("/exam/api/getQuestions", fd);
 }
+
+export const submit = (username, eid, questionList) => {
+  let param = `?username=${username}&eid=${eid}`
+  return axios.post("/exam/api/submit" + param, questionList);
+}
