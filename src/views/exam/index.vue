@@ -29,7 +29,7 @@
                 </h2>
               </div>
               <div class="ongoing" v-if="item.title !== '无进行中考试'">
-                <h2 class="in" @click="exam">
+                <h2 class="in" @click="exam(item)">
                   前往<i class="fad fa-sign-in-alt"></i>
                 </h2>
                 <img
@@ -126,8 +126,8 @@ export default {
     });
   },
   methods: {
-    exam() {
-      this.$router.push({ name: "waiting" });
+    exam(item) {
+      this.$router.push({ name: "waiting", params: { eid: item.id } });
     },
     getNow() {
       this.now = new Date();

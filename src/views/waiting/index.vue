@@ -42,6 +42,10 @@
           </li>
         </ol>
       </div>
+      <div class="tips">
+        <h2>●考试注意事项：</h2>
+        {{exam.tip}}
+      </div>
       <div class="confirm">
         <camera></camera>
         <confirm></confirm>
@@ -67,6 +71,7 @@ export default {
     return {
       exam: {
         id: 0,
+        tip:"",
         title: "精英班选拔考试",
         startTime: "2022-02-12 09:30",
         endTime: "2022-02-21 09:30",
