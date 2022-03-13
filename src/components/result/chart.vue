@@ -20,6 +20,31 @@ export default {
   name: "chart",
   data() {
     return {
+      scoreRank: [],
+      scoreSpread: [
+                {
+                  value: [80, 70, 60, 50, 40],
+                  name: "年级平均成绩",
+                  itemStyle: {
+                    color: "#ff7675",
+                    borderColor: "#ff7675",
+                  },
+                  areaStyle: {
+                    color: "#ff7675",
+                  },
+                },
+                {
+                  value: [70, 80, 70, 60, 50],
+                  name: "你的成绩",
+                  itemStyle: {
+                    color: "#0097e6",
+                    borderColor: "#0097e6",
+                  },
+                  areaStyle: {
+                    color: "#0097e6",
+                  },
+                },
+              ],
       totalStudents: 50,
       rank: 1,
       weakness: "123",
@@ -28,7 +53,19 @@ export default {
   props:{
     eid: String,
   },
+  created() {
+    
+    this.apis.exam.getMyAnalyze(sessionStorage.getItem("username"),this.eid).then((res) => {
+      if(res.data.status === 200){
+        // console.log(res);
+        let data = res.data.result;
+
+
+      }
+    })
+  },
   mounted() {
+    
     this.initscoreRank();
     this.initscoreSpread();
   },
@@ -49,10 +86,10 @@ export default {
             show: true,
           },
           xAxis: {
-            max: 12,
+            max: 11,
           },
           yAxis: {
-            max: 100,
+            max: 200,
           },
           series: [
             {

@@ -22,3 +22,10 @@ export const submit = (username, eid, questionList) => {
   let param = `?username=${username}&eid=${eid}`
   return axios.post("/exam/api/submit" + param, questionList);
 }
+
+export const getMyAnalyze = (username, eid) => {
+  let fd = new FormData();
+  fd.append("username",username);
+  fd.append("eid", eid);
+  return axios.post("/exam/api/getMyAnalyze", fd);
+}
