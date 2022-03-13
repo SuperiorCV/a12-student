@@ -9,65 +9,88 @@
       <div class="yourAnalyze">
         <p class="title">智能分析：</p>
         <p class="item">你的排名：{{ rank }}/{{ totalStudents }}</p>
-        <p class="item">薄弱项：{{ weakness }}</p>
+        <p class="item">经智能分析得出：你的强项是：<span class="strong">{{ this.Ianalyze[1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你的弱项是：<span class="weak">{{ this.Ianalyze[0] }}</span>
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+var idx = 0;
 export default {
   name: "chart",
   data() {
     return {
-      scoreRank: [],
-      scoreSpread: [
-                {
-                  value: [80, 70, 60, 50, 40],
-                  name: "年级平均成绩",
-                  itemStyle: {
-                    color: "#ff7675",
-                    borderColor: "#ff7675",
-                  },
-                  areaStyle: {
-                    color: "#ff7675",
-                  },
-                },
-                {
-                  value: [70, 80, 70, 60, 50],
-                  name: "你的成绩",
-                  itemStyle: {
-                    color: "#0097e6",
-                    borderColor: "#0097e6",
-                  },
-                  areaStyle: {
-                    color: "#0097e6",
-                  },
-                },
-              ],
-      totalStudents: 50,
-      rank: 1,
+      totalStudents: 0,
+      rank: 0,
       weakness: "123",
+      scorerank: [],
+      indicator: [],
+      moduleAverageList: [],
+      myModuleScoreList: [],
+      Ianalyze: [],
     };
   },
-  props:{
+  props: {
     eid: String,
   },
   created() {
-    
-    this.apis.exam.getMyAnalyze(sessionStorage.getItem("username"),this.eid).then((res) => {
-      if(res.data.status === 200){
-        // console.log(res);
-        let data = res.data.result;
+    this.apis.result
+      .getMyAnalyze(sessionStorage.getItem("username"), this.eid)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res);
+          var data = res.data.result;
+          this.totalStudents =data.peopleNum;
+          this.rank = data.rank;
+          for(let i=0;i<data.myList.length;i++){
+            let pushList = [i,data.myList[i]];
+            this.scorerank.push(pushList);
+          }
+          idx = data.idx,
+          this.indicator = data.moduleSumList;
+          this.moduleAverageList = data.moduleAverageList;
+          this.myModuleScoreList = data.myModuleScoreList;
+          this.initscoreRank();
+          this.initscoreSpread();
 
-
-      }
-    })
+          var min = 1000;
+          var max = -1000;
+          var minIndex = 0;
+          var maxIndex = 0;
+          for(let i=0;i<this.indicator.length;i++){
+            let you = this.myModuleScoreList[i];
+            let grade = this.moduleAverageList[i];
+            var distance1 = Number(you)-Number(grade);
+            if(distance1<min){
+              min = distance1;
+              minIndex = i;
+            }
+          }
+          this.Ianalyze.push(this.indicator[minIndex].name);
+         
+          for(let i=0;i<this.indicator.length;i++){
+            
+            let you = this.myModuleScoreList[i];
+            let grade = this.moduleAverageList[i];
+            var distance2 = Number(you)-Number(grade);
+            
+            if(Number(distance2)-Number(max)>0){
+              max = distance2;
+              maxIndex = i;
+            }
+          }
+          this.Ianalyze.push(this.indicator[maxIndex].name);
+         
+          
+          
+        }
+      });
   },
   mounted() {
     
-    this.initscoreRank();
-    this.initscoreSpread();
+    
   },
   methods: {
     initscoreRank() {
@@ -86,7 +109,7 @@ export default {
             show: true,
           },
           xAxis: {
-            max: 11,
+            max: this.scorerank.length+1,
           },
           yAxis: {
             max: 200,
@@ -94,27 +117,15 @@ export default {
           series: [
             {
               symbolSize: 20,
-              data: [
-                [1, 14.47],
-                [2, 23.33],
-                [3, 34.96],
-                [4, 37.24],
-                [5, 46.26],
-                [6, 48.84],
-                [7, 55.82],
-                [8, 65.68],
-                [9, 75.68],
-                [10, 85.68],
-                [11, 95.68],
-              ],
+              data: this.scorerank,
               itemStyle: {
                 normal: {
                   shadowBlur: 10,
                   shadowColor: "rgba(120, 36, 50, 0.5)",
                   shadowOffsetY: 5,
                   color: function (e) {
-                    // console.log(e);
-                    if (e.data[0] === 6) {
+                    // console.log(this.idx);
+                    if (e.data[0] === idx) {
                       return "#ff7979";
                     } else {
                       return "#00a8ff";
@@ -172,13 +183,7 @@ export default {
               },
             },
 
-            indicator: [
-              { name: "单选题", max: 100, color: "#000" },
-              { name: "多选题", max: 100, color: "#000" },
-              { name: "判断题", max: 100, color: "#000" },
-              { name: "排序题", max: 100, color: "#000" },
-              { name: "简答题", max: 100, color: "#000" },
-            ],
+            indicator: this.indicator,
           },
           series: [
             {
@@ -187,7 +192,7 @@ export default {
 
               data: [
                 {
-                  value: [80, 70, 60, 50, 40],
+                  value: this.moduleAverageList,
                   name: "年级平均成绩",
                   itemStyle: {
                     color: "#ff7675",
@@ -198,7 +203,7 @@ export default {
                   },
                 },
                 {
-                  value: [70, 80, 70, 60, 50],
+                  value: this.myModuleScoreList,
                   name: "你的成绩",
                   itemStyle: {
                     color: "#0097e6",
@@ -268,5 +273,11 @@ export default {
 .yourAnalyze .item {
   font-size: 20px;
   font-weight: 700;
+}
+.weak {
+  color: #ff7675;
+}
+.strong {
+  color: #2ed573;
 }
 </style>

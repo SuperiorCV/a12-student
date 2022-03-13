@@ -25,7 +25,10 @@
         <p class="rate">
           难度：<el-rate disabled v-model="question.difficult"></el-rate>
         </p>
-        <p>解析：{{ question.analyze }}</p>
+        <div class="analyze-box">
+          <p>解析：</p>
+          <div class="ql-editor" v-html="question.analyze"></div>
+        </div>
         <p>正确答案：{{ question.answer }}</p>
       </div>
     </div>
@@ -56,7 +59,10 @@
         <p class="rate">
           难度：<el-rate disabled v-model="question.difficult"></el-rate>
         </p>
-        <p>解析：{{ question.analyze }}</p>
+        <div class="analyze-box">
+          <p>解析：</p>
+          <div class="ql-editor" v-html="question.analyze"></div>
+        </div>
         <div class="answer">
           正确答案：
           <div v-for="(el, idx) in question.answer" :key="idx">
@@ -90,7 +96,10 @@
         <p class="rate">
           难度：<el-rate disabled v-model="question.difficult"></el-rate>
         </p>
-        <p>解析：{{ question.analyze }}</p>
+        <div class="analyze-box">
+          <p>解析：</p>
+          <div class="ql-editor" v-html="question.analyze"></div>
+        </div>
         <p>正确答案：{{ question.answer }}</p>
       </div>
     </div>
@@ -120,13 +129,16 @@
             v-model="question.studentScore"
           ></el-input-number>
         </div>
-        <p v-if="question.status === 2 && edit === false">
+        <p v-if="question.status != 2 && edit === false">
           得分：{{ question.studentScore }} / {{ question.score }}分
         </p>
         <p class="rate">
           难度：<el-rate disabled v-model="question.difficult"></el-rate>
         </p>
-        <p>解析：{{ question.analyze }}</p>
+        <div class="analyze-box">
+          <p>解析：</p>
+          <div class="ql-editor" v-html="question.analyze"></div>
+        </div>
         <p>正确答案：{{ question.answer }}</p>
       </div>
     </div>
@@ -156,7 +168,10 @@
         <p class="rate">
           难度：<el-rate disabled v-model="question.difficult"></el-rate>
         </p>
-        <p>解析：{{ question.analyze }}</p>
+        <div class="analyze-box">
+          <p>解析：</p>
+          <div class="ql-editor" v-html="question.analyze"></div>
+        </div>
         <p>正确答案：</p>
         <draggable v-model="question.answer">
           <transition-group>
@@ -166,7 +181,7 @@
               :key="element.prefix"
             >
               <div class="ql-container ql-snow">
-                <span>{{ j }}</span>
+                <span>{{ element.prefix }}</span>
                 <div class="content ql-editor" v-html="element.content" />
               </div>
             </div>
@@ -219,17 +234,6 @@ export default {
       } else if (status === 2) {
         return `已审批`;
       }
-    },
-  },
-  watch: {
-    question: {
-      handler(n, o) {
-        if (o.questionType === 4) {
-          this.$emit("updateExam", n, o);
-        }
-      },
-      // immediate: true,
-      deep: true,
     },
   },
 };
@@ -293,5 +297,13 @@ export default {
 }
 .answerBox:hover {
   background: #f5f7fa;
+}
+.analyze-box {
+  width: 100%;
+  margin-bottom: 1em;
+  display: flex;
+}
+.analyze-box p {
+  margin: 0;
 }
 </style>
