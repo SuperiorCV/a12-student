@@ -10,8 +10,9 @@ import * as waiting from './waiting.js'
 import * as testing from './testing.js'
 import * as record from './record.js'
 import * as wrong from './wrong.js'
+import * as result from './result.js'
 // axios.defaults=
-axios.defaults.baseURL = 'http://192.168.43.76:8080/';
+axios.defaults.baseURL = 'http://192.168.43.94:8080/';
 axios.defaults.timeout = 90000;
 
 // http request拦截器 添加一个请求拦截器
@@ -45,15 +46,16 @@ axios.interceptors.response.use(
   }
 )
 // 暴露给外部以便调用，此时所有的api方法整合到了一起形成一个对象命名为apis
-const apis={
-    welcome,
-    homepage,
-    message,
-    myinfo,
-    exam,
-    waiting,
-    testing,
-    record,
-    wrong,
+const apis = {
+  welcome,
+  homepage,
+  message,
+  myinfo,
+  exam,
+  waiting,
+  testing,
+  record,
+  wrong,
+  result
 }
 export default apis

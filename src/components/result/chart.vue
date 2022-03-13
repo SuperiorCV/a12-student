@@ -23,10 +23,25 @@ export default {
       totalStudents: 50,
       rank: 1,
       weakness: "123",
+      indicator: [],
+      moduleAverageList: [],
+      myModuleScoreList: [],
     };
   },
-  props:{
+  props: {
     eid: String,
+  },
+  created() {
+    this.apis.result
+      .getMyAnalyze(sessionStorage.getItem("username"), this.eid)
+      .then((res) => {
+        if (res.status === 200) {
+          var data = res.data.result;
+          this.indicator = data.moduleSumList;
+          this.moduleAverageList = data.moduleAverageList;
+          this.myModuleScoreList = data.myModuleScoreList;
+        }
+      });
   },
   mounted() {
     this.initscoreRank();
