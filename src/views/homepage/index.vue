@@ -173,6 +173,7 @@ export default {
     this.apis.homepage
       .getInfo(sessionStorage.getItem("username"))
       .then((res) => {
+        console.log(res);
         if (res.status === 200) {
           let data = res.data.result;
           this.studentInfo.name = data.name;
@@ -193,6 +194,7 @@ export default {
           this.studentInfo.registerTime = data.registerTime;
 
           this.initDate();
+          this.initChart();
         }
       });
   },
@@ -201,7 +203,6 @@ export default {
     setTimeout(function () {
       that.checked = true;
     }, 1000);
-    this.initChart();
   },
   data() {
     return {

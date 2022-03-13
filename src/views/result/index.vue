@@ -5,7 +5,6 @@
       <div class="info">
         <p>提交人：{{ exam.student }}</p>
         <p>提交时间：{{ exam.submitTime }}</p>
-        <p>已判题数：6 / {{ exam.total }}题</p>
         <p>试卷分数：{{ exam.currentScore }} / {{ exam.fullScore }}分</p>
       </div>
       <div class="menu">

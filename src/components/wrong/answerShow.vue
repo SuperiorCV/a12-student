@@ -136,11 +136,11 @@
         <transition-group>
           <div
             class="answerBox"
-            v-for="(element, j) in question.studentAnswer"
+            v-for="element in question.studentAnswer"
             :key="element.prefix"
           >
             <div class="ql-container ql-snow">
-              <span>{{ j }}</span>
+              <span>{{ element.prefix }}</span>
               <div class="content ql-editor" v-html="element.content" />
             </div>
           </div>
@@ -162,11 +162,11 @@
           <transition-group>
             <div
               class="answerBox"
-              v-for="(element, j) in question.answer"
+              v-for="element in question.answer"
               :key="element.prefix"
             >
               <div class="ql-container ql-snow">
-                <span>{{ j }}</span>
+                <span>{{ element.prefix }}</span>
                 <div class="content ql-editor" v-html="element.content" />
               </div>
             </div>
