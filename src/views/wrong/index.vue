@@ -4,12 +4,15 @@
       <div
         class="card"
         v-for="(question, j) in questionList"
-        :key="question.id"
+        :key="question.id+j"
       >
         <h2 @click="deleteWrong(j)"><i class="fad fa-axe"></i>斩错题!</h2>
         <AnswerShow :edit="edit" :idx="j + 1" :question="question"></AnswerShow>
       </div>
     </transition-group>
+    <div class="nomore-wrong" v-if=" questionList.length <= 0">
+      <h1><i class="fas fa-engine-warning"></i> 您暂时没有错题</h1>
+    </div>
   </div>
 </template>
 
@@ -22,261 +25,29 @@ export default {
   components: {
     AnswerShow,
   },
+  created() {
+    this.apis.wrong.getWrong(sessionStorage.getItem("username")).then((res) => {
+      if(res.data.status === 200){
+        console.log(res);
+        this.questionList = res.data.result;
+      }
+    })
+  },
   data() {
     return {
       edit: false,
-      questionList: [
-        {
-          id: 1,
-          questionType: 1,
-          difficult: 3,
-          // -1表示标题
-          title: "fsfsafsafsfsa",
-          items: [
-            { prefix: "A", content: "ggg" },
-            { prefix: "B", content: "gggggg" },
-            { prefix: "C", content: "aaa" },
-            { prefix: "D", content: "cccc" },
-          ],
-          status: 1, //-1表示错误，0表示待批改，1表示正确
-          answer: "A",
-          studentAnswer: "C",
-          // -2表示解析
-          analyze: "fsagsagsagsag",
-          score: 1,
-          studentScore: 1,
-        },
-        {
-          id: 2,
-          questionType: 1,
-          difficult: 2,
-          // -1表示标题
-          title: "fsfsfssd",
-          items: [
-            { prefix: "A", content: "fafsa" },
-            { prefix: "B", content: "gsagsgs" },
-            { prefix: "C", content: "faf" },
-            { prefix: "D", content: "fasfs" },
-          ],
-          status: -1, //-1表示错误，0表示待批改，1表示正确
-          answer: "A",
-          // -2表示解析
-          analyze: "fafsfs",
-          studentAnswer: "C",
-          score: 2,
-          studentScore: 0,
-        },
-        {
-          id: 3,
-          questionType: 1,
-          difficult: 3,
-          // -1表示标题
-          title: "fsfsfss",
-          items: [
-            { prefix: "A", content: "fsafs" },
-            { prefix: "B", content: "fsaf" },
-            { prefix: "C", content: "fsafs" },
-            { prefix: "D", content: "fsaf" },
-          ],
-          status: 1, //-1表示错误，0表示待批改，1表示正确
-          answer: "D",
-          studentAnswer: "C",
-          // -2表示解析
-          analyze: "",
-          score: 2,
-          studentScore: 2,
-        },
-        {
-          id: 4,
-          questionType: 2,
-          difficult: 3,
-          // -1表示标题
-          title: "fsfsafsafsfsa",
-          items: [
-            { prefix: "A", content: "ggg" },
-            { prefix: "B", content: "gggggg" },
-            { prefix: "C", content: "aaa" },
-            { prefix: "D", content: "cccc" },
-          ],
-          status: 1, //-1表示错误，0表示待批改，1表示正确
-          answer: ["A", "C", "D"],
-          studentAnswer: ["A", "C", "D"],
-          // -2表示解析
-          analyze: "fsagsagsagsag",
-          score: 1,
-          studentScore: 1,
-        },
-        {
-          id: 5,
-          questionType: 2,
-          difficult: 2,
-          // -1表示标题
-          title: "fsfsfssd",
-          items: [
-            { prefix: "A", content: "fafsa" },
-            { prefix: "B", content: "gsagsgs" },
-            { prefix: "C", content: "faf" },
-            { prefix: "D", content: "fasfs" },
-          ],
-          status: -1, //-1表示错误，0表示待批改，1表示正确
-          answer: "A",
-          // -2表示解析
-          answer: ["A", "C", "B"],
-          studentAnswer: ["A", "C"],
-          score: 2,
-          studentScore: 0,
-        },
-        {
-          id: 6,
-          questionType: 2,
-          difficult: 3,
-          // -1表示标题
-          title: "fsfsfss",
-          items: [
-            { prefix: "A", content: "fsafs" },
-            { prefix: "B", content: "fsaf" },
-            { prefix: "C", content: "fsafs" },
-            { prefix: "D", content: "fsaf" },
-          ],
-          status: 1, //-1表示错误，0表示待批改，1表示正确
-          answer: ["A", "C"],
-          studentAnswer: ["A", "C"],
-          // -2表示解析
-          analyze: "SASASASA",
-          score: 2,
-          studentScore: 2,
-        },
-        {
-          id: 7,
-          questionType: 3,
-          difficult: 3,
-          // -1表示标题
-          title: "fsfsafsafsfsa",
-          items: [
-            { prefix: "A", content: "正确" },
-            { prefix: "B", content: "错误" },
-          ],
-          status: 1, //-1表示错误，0表示待批改，1表示正确
-          answer: "A",
-          studentAnswer: "A",
-          // -2表示解析
-          analyze: "fsagsagsagsag",
-          score: 1,
-          studentScore: 1,
-        },
-        {
-          id: 8,
-          questionType: 3,
-          difficult: 2,
-          // -1表示标题
-          title: "fsfsfssd",
-          items: [
-            { prefix: "A", content: "正确" },
-            { prefix: "B", content: "错误" },
-          ],
-          status: -1, //-1表示错误，0表示待批改，1表示正确
-          answer: "A",
-          // -2表示解析
-          analyze: "fafsfs",
-          studentAnswer: "B",
-          score: 2,
-          studentScore: 0,
-        },
-        {
-          id: 9,
-          questionType: 3,
-          difficult: 3,
-          // -1表示标题
-          title: "fsfsfss",
-          items: [
-            { prefix: "A", content: "正确" },
-            { prefix: "B", content: "错误" },
-          ],
-          status: -1, //-1表示错误，0表示待批改，1表示正确
-          answer: "A",
-          studentAnswer: "B",
-          // -2表示解析
-          analyze: "",
-          score: 2,
-          studentScore: 0,
-        },
-        {
-          id: 10,
-          questionType: 4,
-          difficult: 3,
-          title: "fsfsfss",
-          status: 0, //-1表示错误，0表示待批改，1表示正确
-          answer: "答案1",
-          studentAnswer: "sddfsssssssssssssssssss",
-          // -2表示解析
-          analyze: "SASASASA",
-          score: 2,
-          studentScore: undefined,
-        },
-        {
-          id: 11,
-          questionType: 4,
-          difficult: 3,
-          // -1表示标题
-          title: "fsfsfss",
-          status: 0, //-1表示错误，0表示待批改，1表示正确
-          answer: "123123",
-          studentAnswer: "rtyui",
-          // -2表示解析
-          analyze: "SASASASA",
-          score: 2,
-          studentScore: undefined,
-        },
-        {
-          id: 12,
-          questionType: 4,
-          difficult: 3,
-          // -1表示标题
-          title: "fsfsfss",
-          status: 0, //-1表示错误，0表示待批改，1表示正确
-          answer: "456",
-          studentAnswer: "oiuttd",
-          // -2表示解析
-          analyze: "SASASASA",
-          score: 2,
-          studentScore: undefined,
-        },
-        {
-          id: 13,
-          questionType: 5,
-          difficult: 3,
-          // -1表示标题
-          title: "fsfsfss",
-          items: [
-            { prefix: "A", content: "<pre>A</pre>" },
-            { prefix: "B", content: "<p>B</p>" },
-            { prefix: "C", content: "<pre>C</pre>" },
-            { prefix: "D", content: "<p>D</p>" },
-          ],
-          status: 1, //-1表示错误，0表示待批改，1表示正确
-          answer: [
-            { prefix: "A", content: "<pre>A</pre>" },
-            { prefix: "B", content: "<p>B</p>" },
-            { prefix: "D", content: "<p>D</p>" },
-            { prefix: "C", content: "<pre>C</pre>" },
-          ],
-          studentAnswer: [
-            { prefix: "A", content: "<pre>A</pre>" },
-            { prefix: "B", content: "<p>B</p>" },
-            { prefix: "C", content: "<pre>C</pre>" },
-            { prefix: "D", content: "<p>D</p>" },
-          ],
-          // -2表示解析
-          analyze: "SASASASA",
-          score: 2,
-          studentScore: 2,
-        },
-      ],
+      questionList: [],
     };
   },
   methods: {
     deleteWrong(j) {
-      this.questionList.splice(j, 1);
+      this.apis.wrong.killWrong(this.questionList[j].id,this.questionList[j].eid,sessionStorage.getItem("username")).then((res) => {
+        if(res.data.status === 200){
+          console.log(res);
+          this.questionList.splice(j, 1);
+        }
+      })
+      
     },
   },
 };
@@ -314,7 +85,7 @@ span {
   font-size: 40px;
   color: grey;
   z-index: 99;
-  top: 30%;
+  top: 60%;
   left: 60%;
   opacity: 0;
   transition: 0.3s;
@@ -336,5 +107,15 @@ span {
 .v-leave-active {
   position: absolute !important;
   width: 88% !important;
+}
+.nomore-wrong {
+  width: 100%;
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: pink; */
+  color: grey;
+  font-family: SentyGoldenBell;
 }
 </style>

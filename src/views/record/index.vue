@@ -2,7 +2,11 @@
   <div id="record">
     <div id="main_container">
       <transition-group appear v-if="record_list.length > 0">
-        <card v-for="record in record_list" :key="record.id" :record="record">
+        <card
+          v-for="(record, index) in record_list"
+          :key="record.title+index"
+          :record="record"
+        >
         </card>
       </transition-group>
       <div id="nomore-record" v-if="record_list.length <= 0">
@@ -20,45 +24,30 @@ export default {
   components: {
     card,
   },
+  created() {
+    this.apis.record
+      .getExams(sessionStorage.getItem("username"))
+      .then((res) => {
+        if (res.data.status === 200) {
+          let data = res.data.result;
+          for (let i = 0; i < data.length; i++) {
+            let pushList = new Object();
 
+            pushList.title = data[i].title;
+            pushList.commit_time = data[i].submitTime;
+            pushList.paper_status = data[i].examState;
+            pushList.subject = data[i].subject;
+            pushList.num = data[i].questionCnt;
+            pushList.total = data[i].totalScore;
+
+            this.record_list.push(pushList);
+          }
+        }
+      });
+  },
   data() {
     return {
-      record_list: [
-        {
-          id: "1073",
-          commit_time: "2022-01-11 17:56:25",
-          paper_status: "True",
-          subject: "math",
-          num: 3,
-          total: 10,
-        },
-        {
-          id: "1074",
-          commit_time: "2022-01-11 17:56:25",
-          paper_status: "True",
-
-          subject: "math",
-          num: 3,
-          total: 10,
-        },
-        {
-          id: "1076",
-          commit_time: "2022-01-11 17:56:25",
-          paper_status: "True",
-          subject: "math",
-          num: 3,
-          total: 10,
-        },
-        {
-          id: "1079",
-          commit_time: "2022-01-11 17:56:25",
-          paper_status: "False",
-
-          subject: "Chinese",
-          num: 3,
-          total: 10,
-        },
-      ],
+      record_list: [],
     };
   },
 };
