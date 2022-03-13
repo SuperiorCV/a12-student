@@ -3,12 +3,12 @@
     <el-card shadow="hover">
       <div id="main_container">
         <div id="left" class="container">
-          <span>智能训练试卷 - {{ record.id }}</span>
+          <span>智能训练试卷 - {{ record.title }}</span>
           <span>提交时间： {{ record.commit_time }}</span>
           <span>
             试卷状态：
             <el-tag
-              v-if="record.paper_status == 'True'"
+              v-if="record.paper_status == 1||record.paper_status == 2"
               type="success"
               size="small"
               >批改完成</el-tag
@@ -23,7 +23,7 @@
           <span>试卷总分：{{ record.total }}</span>
         </div>
 
-        <el-button type="text" @click="result">查看试卷</el-button>
+        <el-button type="text" v-if="record.paper_status == 1||record.paper_status == 2" @click="result">查看试卷</el-button>
       </div>
     </el-card>
   </div>

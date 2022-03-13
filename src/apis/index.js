@@ -8,8 +8,10 @@ import * as myinfo from './myinfo.js'
 import * as exam from './exam.js'
 import * as waiting from './waiting.js'
 import * as testing from './testing.js'
+import * as record from './record.js'
+import * as wrong from './wrong.js'
 // axios.defaults=
-axios.defaults.baseURL = 'http://172.23.19.149:8080/';
+axios.defaults.baseURL = 'http://192.168.43.76:8080/';
 axios.defaults.timeout = 90000;
 
 // http request拦截器 添加一个请求拦截器
@@ -51,5 +53,7 @@ const apis={
     exam,
     waiting,
     testing,
+    record,
+    wrong,
 }
 export default apis
