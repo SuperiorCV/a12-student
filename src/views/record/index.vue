@@ -29,6 +29,7 @@ export default {
       .getExams(sessionStorage.getItem("username"))
       .then((res) => {
         if (res.data.status === 200) {
+          // console.log(res);
           let data = res.data.result;
           for (let i = 0; i < data.length; i++) {
             let pushList = new Object();
