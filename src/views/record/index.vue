@@ -4,7 +4,7 @@
       <transition-group appear v-if="record_list.length > 0">
         <card
           v-for="(record, index) in record_list"
-          :key="record.title+index"
+          :key="record.title + index"
           :record="record"
         >
         </card>
@@ -32,14 +32,13 @@ export default {
           let data = res.data.result;
           for (let i = 0; i < data.length; i++) {
             let pushList = new Object();
-
+            pushList.eid = data[i].eid;
             pushList.title = data[i].title;
             pushList.commit_time = data[i].submitTime;
             pushList.paper_status = data[i].examState;
             pushList.subject = data[i].subject;
             pushList.num = data[i].questionCnt;
             pushList.total = data[i].totalScore;
-
             this.record_list.push(pushList);
           }
         }

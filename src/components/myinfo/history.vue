@@ -43,7 +43,7 @@ export default {
             if (matchContent.match("登录")) {
               activity.icon = "fas fa-sign-in";
               activity.color = "#27ae60";
-            } else if (matchContent.match("删除")) {
+            } else if (matchContent.match("斩掉")) {
               activity.icon = "fad fa-eraser";
               activity.color = "#ff7675";
             } else if (matchContent.match("修改")) {

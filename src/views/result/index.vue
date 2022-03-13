@@ -25,7 +25,7 @@
       </div>
     </div>
     <div id="r-main">
-      <chart></chart>
+      <chart :eid="eid"></chart>
       <div class="module" v-for="(mod, idx) in exam.modules" :key="idx">
         <div class="header">
           <h3>模块{{ idx + 1 }}：{{ mod.title }}</h3>
@@ -66,6 +66,7 @@ export default {
   },
   data() {
     return {
+      eid:'',
       edit: false,
       exam: {
         currentScore: 80,

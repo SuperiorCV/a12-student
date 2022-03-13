@@ -78,6 +78,7 @@
       <p class="head" style="background: #596275">
         题目{{ IndexCompute }}、[{{ question.score }}分] 排序题
       </p>
+      <div class="ql-editor" v-html="question.title"></div>
       <draggable v-model="question.studentAnswer">
         <transition-group>
           <div

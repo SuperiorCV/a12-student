@@ -154,7 +154,7 @@ export default {
           return false;
         }
       });
-      this.$router.push({ name: "homepage" });
+      this.$router.push({ name: "login" });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

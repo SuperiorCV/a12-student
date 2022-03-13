@@ -275,10 +275,6 @@ export default {
           tooltip: {
             trigger: "axis",
           },
-          legend: {
-            left: "center",
-            data: ["A Software"],
-          },
           radar: [
             {
               indicator: [

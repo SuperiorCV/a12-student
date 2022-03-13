@@ -25,6 +25,9 @@ export default {
       weakness: "123",
     };
   },
+  props:{
+    eid: String,
+  },
   mounted() {
     this.initscoreRank();
     this.initscoreSpread();
