@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
-      console.log(`mememem`);
+      // console.log(`mememem`);
       this.activeName = tab.name;
       this.$router.push({ name: tab.name });
     },

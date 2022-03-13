@@ -218,7 +218,7 @@ export default {
               this.passwordForm.newPwd
             )
             .then((res) => {
-              console.log(res);
+              // console.log(res);
               if (res.data.status === 200) {
                 this.$message({
                   message: "修改密码成功",

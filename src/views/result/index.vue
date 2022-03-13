@@ -61,7 +61,7 @@ export default {
   created() {
     var params = this.$route.params;
     if (params != null) {
-      this.edit = params.edit;
+      this.eid=params.exam.eid;
     }
   },
   data() {

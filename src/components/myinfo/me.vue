@@ -140,7 +140,7 @@ export default {
   methods: {
     searchClass() {
       this.apis.myinfo.searchClass(this.command).then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data.status === 200) {
           this.result = res.data.result;
         }
@@ -152,7 +152,7 @@ export default {
         .then((res) => {
           if (res.data.status === 200) {
             this.arr.push(res.data.result);
-            console.log(res);
+            // console.log(res);
             this.$message({
               message: "成功加入班级！",
               type: "success",

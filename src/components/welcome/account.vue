@@ -142,19 +142,33 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let username =  this.$route.params.username;
-          let email =  this.$route.params.email;
-          let password =  this.$route.params.password;
+          let username = this.$route.params.username;
+          let email = this.$route.params.email;
+          let password = this.$route.params.password;
           this.$refs.uploader.submit();
-          this.apis.welcome.register(this.ruleForm, this.avatar, username, email, password).then((res) => {
-            console.log(res);
-          });
+          this.apis.welcome
+            .register(this.ruleForm, this.avatar, username, email, password)
+            .then((res) => {
+              // console.log(res);
+              if (res.data.status === 200) {
+                this.$notify({
+                  title: "成功",
+                  message: "账号注册成功！",
+                  type: "success",
+                });
+                this.$router.push({ name: "login" });
+              } else {
+                this.$notify.error({
+                  title: "错误",
+                  message: "账号注册失败！",
+                });
+              }
+            });
         } else {
           console.log("error submit!!");
           return false;
         }
       });
-      this.$router.push({ name: "login" });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -165,9 +179,9 @@ export default {
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
       const isLt2M = file.size / 1024 / 1024 < 2;
-      
+
       this.avatar = file;
-      this.imageUrl=URL.createObjectURL(file)
+      this.imageUrl = URL.createObjectURL(file);
       if (!isJPG) {
         this.$message.error("上传头像图片只能是 JPG 格式!");
       }

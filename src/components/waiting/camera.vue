@@ -125,7 +125,7 @@ export default {
         fetch("apis/face/verify/", options)
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             this.loading = false;
             this.onCancel();
             if (data.verify_correct == "false") {

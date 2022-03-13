@@ -56,7 +56,7 @@ export default {
         const conversions = this.dataURLtoFile(file, name); // 调用base64转图片方法
         this.apis.testing.store(sessionStorage.getItem("eid"),sessionStorage.getItem("username"),conversions).then((res) => {
           if(res.data.status === 200){
-            console.log(res);
+            // console.log(res);
           }
         })
         this.stopNavigator();

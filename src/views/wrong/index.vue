@@ -28,7 +28,7 @@ export default {
   created() {
     this.apis.wrong.getWrong(sessionStorage.getItem("username")).then((res) => {
       if(res.data.status === 200){
-        console.log(res);
+        // console.log(res);
         this.questionList = res.data.result;
       }
     })
@@ -43,7 +43,7 @@ export default {
     deleteWrong(j) {
       this.apis.wrong.killWrong(this.questionList[j].id,this.questionList[j].eid,sessionStorage.getItem("username")).then((res) => {
         if(res.data.status === 200){
-          console.log(res);
+          // console.log(res);
           this.questionList.splice(j, 1);
         }
       })

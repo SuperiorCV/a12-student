@@ -85,7 +85,7 @@ export default {
     startExam() {
       this.apis.waiting.startExam(sessionStorage.getItem("eid"),sessionStorage.getItem("username")).then((res) => {
         if(res.data.status === 200){
-          console.log(res);
+          // console.log(res);
           this.$router.push({ name: "testing" });
         }
       })

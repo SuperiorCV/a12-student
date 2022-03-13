@@ -76,7 +76,7 @@ export default {
                   shadowColor: "rgba(120, 36, 50, 0.5)",
                   shadowOffsetY: 5,
                   color: function (e) {
-                    console.log(e);
+                    // console.log(e);
                     if (e.data[0] === 6) {
                       return "#ff7979";
                     } else {
