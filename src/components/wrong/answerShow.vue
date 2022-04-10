@@ -25,7 +25,7 @@
         <p class="rate">
           难度：<el-rate disabled v-model="question.difficult"></el-rate>
         </p>
-        <p>解析：{{ question.analyze }}</p>
+        <div class="ql-editor" v-html="question.analyze"></div>
         <p>正确答案：{{ question.answer }}</p>
       </div>
     </div>
@@ -56,7 +56,7 @@
         <p class="rate">
           难度：<el-rate disabled v-model="question.difficult"></el-rate>
         </p>
-        <p>解析：{{ question.analyze }}</p>
+         <div class="ql-editor" v-html="question.analyze"></div>
         <div class="answer">
           正确答案：
           <div v-for="(el, idx) in question.answer" :key="idx">
@@ -90,7 +90,7 @@
         <p class="rate">
           难度：<el-rate disabled v-model="question.difficult"></el-rate>
         </p>
-        <p>解析：{{ question.analyze }}</p>
+        <div class="ql-editor" v-html="question.analyze"></div>
         <p>正确答案：{{ question.answer }}</p>
       </div>
     </div>
@@ -126,7 +126,7 @@
         <p class="rate">
           难度：<el-rate disabled v-model="question.difficult"></el-rate>
         </p>
-        <p>解析：{{ question.analyze }}</p>
+         <div class="ql-editor" v-html="question.analyze"></div>
         <p>正确答案：{{ question.answer }}</p>
       </div>
     </div>
@@ -156,7 +156,7 @@
         <p class="rate">
           难度：<el-rate disabled v-model="question.difficult"></el-rate>
         </p>
-        <p>解析：{{ question.analyze }}</p>
+         <div class="ql-editor" v-html="question.analyze"></div>
         <p>正确答案：</p>
         <draggable v-model="question.answer">
           <transition-group>

@@ -2,7 +2,10 @@
   <div id="card" class="animate__animated animate__fadeInUp">
     <el-card shadow="hover">
       <div id="main_container">
-        <div id="left" class="container">
+        <div
+          id="left"
+          class="container"
+        >
           <span>智能训练试卷 - {{ record.title }}</span>
           <span>提交时间： {{ record.commit_time }}</span>
           <span>
@@ -13,7 +16,12 @@
               size="small"
               >批改完成</el-tag
             >
-            <el-tag v-else type="danger" size="small">待批改</el-tag>
+            <el-tag
+              v-else
+              type="danger"
+              size="small"
+              >待批改</el-tag
+            >
           </span>
         </div>
 

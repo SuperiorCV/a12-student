@@ -31,7 +31,7 @@ export default {
   background: #ecf0f1;
 }
 #item h2 {
-  width: 200px;
+  width: 400px;
   font-family: "SentyGoldenBell";
 }
 #item p {

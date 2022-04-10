@@ -1,15 +1,15 @@
 <template>
   <div id="record">
     <div id="main_container">
-      <transition-group appear v-if="record_list.length > 0">
+      <transition-group appear v-if="data.length > 0">
         <card
-          v-for="(record, index) in record_list"
+          v-for="(record, index) in arr"
           :key="record.title + index"
           :record="record"
         >
         </card>
       </transition-group>
-      <div id="nomore-record" v-if="record_list.length <= 0">
+      <div id="nomore-record" v-if="data.length <= 0">
         <h1><i class="fas fa-engine-warning"></i> 您暂时没有任何提交的试卷</h1>
       </div>
     </div>
@@ -49,6 +49,17 @@ export default {
     return {
       record_list: [],
     };
+  },
+  computed: {
+    data() {
+      var arr = [];
+      for (let i = 0; i < this.record_list.length; i++) {
+        if (this.record_list[i].paper_status != -1) {
+          arr.push(this.record_list[i]);
+        }
+      }
+      return arr;
+    },
   },
 };
 </script>

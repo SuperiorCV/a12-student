@@ -79,29 +79,29 @@ export default {
       thisCancas: null,
       videoWidth: 500,
       videoHeight: 400,
-
+      veried: false,
       id: 201, //用户id
     };
   },
 
   computed: {
-    monitor () {
-      return this.$store.state.camera_show
-    }
+    monitor() {
+      return this.$store.state.camera_show;
+    },
   },
 
   watch: {
-    monitor () {
-      this.visible = this.$store.state.camera_show
-      if(this.visible){
+    monitor(n, o) {
+      this.visible = n;
+      if (this.visible) {
         this.getCompetence();
       }
-    }
+    },
   },
 
   methods: {
     onCancel() {
-      this.visible = false;
+      this.$store.commit("set_camera_show", false);
       this.resetCanvas();
       this.stopNavigator();
     },
@@ -122,21 +122,26 @@ export default {
           body: data, //请求体
         };
         this.loading = true;
-        fetch("apis/face/verify/", options)
-          .then((res) => res.json())
+        fetch("http://101.43.213.112/face/verify/", options)
+          .then((res) => {
+            // console.log(res);
+            return res.json();
+          })
           .then((data) => {
-            // console.log(data);
-            this.loading = false;
-            this.onCancel();
             if (data.verify_correct == "false") {
               this.$notify.error({
-                title: "上传失败",
+                title: "认证失败，请重新尝试",
               });
             } else {
               this.$notify({
-                title: "上传成功",
+                title: "认证成功",
                 type: "success",
               });
+              this.loading = false;
+              this.verified = true;
+              console.log(`vvvv`)
+              this.$emit("verify", this.verified);
+              this.onCancel();
             }
           })
           .catch((error) => {

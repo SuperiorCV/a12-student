@@ -47,8 +47,8 @@
         {{ exam.tips }}
       </div>
       <div class="confirm">
-        <camera></camera>
-        <confirm></confirm>
+        <camera @verify="verify"></camera>
+        <confirm :verified="verified"></confirm>
       </div>
     </div>
   </div>
@@ -62,11 +62,7 @@ import camera from "@/components/waiting/camera.vue";
 export default {
   name: "waiting",
   components: { FlipCountdown, confirm, camera },
-  methods: {
-    backup() {
-      this.$router.push({ name: "exam" });
-    },
-  },
+
   created() {
     this.eid = this.$route.params.eid;
     sessionStorage.setItem("eid", this.eid);
@@ -91,7 +87,17 @@ export default {
     return {
       eid: "",
       exam: null,
+      verified: false,
     };
+  },
+  methods: {
+    backup() {
+      this.$router.push({ name: "exam" });
+    },
+    verify(v) {
+      // console.log(`hhhhhh`)
+      this.verified = v;
+    },
   },
 };
 </script>

@@ -63,6 +63,10 @@ export default new Router({
         path: 'wrong',
         name: 'wrong',
         component: () => import("@/views/wrong/index.vue")
+      }, {
+        path: 'about',
+        name: 'about',
+        component: () => import("@/views/about/index.vue")
       }]
     },
     {
@@ -73,7 +77,7 @@ export default new Router({
     {
       path: '/result',
       name: 'result',
-      component: ()=>import("@/views/result/index.vue")
+      component: () => import("@/views/result/index.vue")
     }
   ]
 })

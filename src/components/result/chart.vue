@@ -9,7 +9,7 @@
       <div class="yourAnalyze">
         <p class="title">智能分析：</p>
         <p class="item">你的排名：{{ rank }}/{{ totalStudents }}</p>
-        <p class="item">经智能分析得出：你的强项是：<span class="strong">{{ this.Ianalyze[1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你的弱项是：<span class="weak">{{ this.Ianalyze[0] }}</span>
+        <p class="item">在本次考试中：你的强项是：<span class="strong">{{ this.Ianalyze[1] }}</span>，希望能继续保持！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你的弱项是：<span class="weak">{{ this.Ianalyze[0] }}</span>，及时弥补，再接再厉！
         </p>
       </div>
     </div>

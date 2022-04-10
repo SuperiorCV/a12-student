@@ -13,12 +13,12 @@
         </template>
         <div class="content">
           <div>{{ mes.content }}</div>
-          <div v-if="mes.mtype == 'class'">
+          <!-- <div v-if="mes.mtype == 'class'">
             <el-button type="text">同意加入</el-button>
-          </div>
-          <div v-else-if="mes.mtype == 'test'">
+          </div> -->
+          <!-- <div v-else-if="mes.mtype == 'test'">
             <el-button type="text">查看试卷</el-button>
-          </div>
+          </div> -->
         </div>
       </el-collapse-item>
     </el-collapse>

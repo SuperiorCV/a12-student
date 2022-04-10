@@ -14,17 +14,14 @@
       <li style="--i: 4" @click="goto(3)">
         <a href="#"> <i class="fad fa-archive"></i> 错题记录 </a>
       </li>
-      <li style="--i: 5">
-        <a href="#"> Show me more </a>
+      <li style="--i: 5" @click="goto(4)">
+        <a href="#"> <i class="fad fa-quote-left"></i> 关于作品 </a>
       </li>
     </ul>
     <div class="profile">
       <div class="details">
-        <img
-          class="avatar"
-          src="https://s3.bmp.ovh/imgs/2022/01/a714525bf61d4a6a.png"
-        />
-        <span>langwenchong</span>
+        <img class="avatar" :src="avatar" />
+        <span>{{ name }}</span>
       </div>
       <i class="fad fa-sign-out" @click="out"></i>
     </div>
@@ -37,6 +34,8 @@ export default {
   name: "sidebar",
   props: {
     checked: Boolean,
+    name: String,
+    avatar: String,
   },
   methods: {
     out() {
@@ -51,6 +50,8 @@ export default {
         this.$router.push({ name: "record" });
       } else if (i === 3) {
         this.$router.push({ name: "wrong" });
+      } else if (i === 4) {
+        this.$router.push({ name: "about" });
       }
     },
   },

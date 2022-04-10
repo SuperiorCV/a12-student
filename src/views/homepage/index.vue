@@ -14,7 +14,7 @@
     </el-dialog>
     <div id="l-side" class="animate__animated animate__slideInLeft">
       <div id="main">
-        <sidebar :checked="checked"></sidebar>
+        <sidebar :name="studentInfo.name" :avatar="studentInfo.avatarPath" :checked="checked"></sidebar>
         <input type="checkbox" name="open" id="open" v-model="checked" />
         <label for="open" class="bt">
           <span></span>
@@ -32,7 +32,7 @@
             <img
               width="80px"
               height="80px"
-              src="https://s3.bmp.ovh/imgs/2022/01/a714525bf61d4a6a.png"
+              :src="studentInfo.avatarPath"
               alt=""
             />
             <div class="info">
@@ -173,7 +173,7 @@ export default {
     this.apis.homepage
       .getInfo(sessionStorage.getItem("username"))
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 200) {
           let data = res.data.result;
           this.studentInfo.name = data.name;

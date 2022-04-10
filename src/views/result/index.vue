@@ -68,7 +68,7 @@ export default {
     this.apis.result
       .getAnswerPaper(sessionStorage.getItem("username"), this.eid)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         var modules = res.data.result;
         this.exam.modules = modules;
       });

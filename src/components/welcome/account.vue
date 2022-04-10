@@ -41,9 +41,9 @@
         </el-form-item>
         <el-form-item prop="sex">
           <el-select v-model="ruleForm.sex" placeholder="请选择您的性别">
-            <el-option label="男士" value="male"></el-option>
-            <el-option label="女士" value="female"></el-option>
-            <el-option label="不愿透露" value="none"></el-option>
+            <el-option label="男士" value="男士"></el-option>
+            <el-option label="女士" value="女士"></el-option>
+            <el-option label="不愿透露" value="不愿透露"></el-option>
           </el-select>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
@@ -142,6 +142,27 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          const data = new FormData();
+          data.append("student_id", this.$route.params.username);
+          data.append("face", this.avatar);
+          // console.log(data)
+          const options = {
+            method: "POST", //请求方法
+            body: data, //请求体
+          };
+          fetch("http://101.43.213.112/face/register/", options)
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              
+            })
+            .catch((error) => {
+              this.loading = false;
+              this.$notify.error({
+                title: "人脸注册失败",
+              });
+              return;
+            });
           let username = this.$route.params.username;
           let email = this.$route.params.email;
           let password = this.$route.params.password;
@@ -156,7 +177,7 @@ export default {
                   message: "账号注册成功！",
                   type: "success",
                 });
-                this.$router.push({ name: "login" });
+                this.$router.push({ name: "sign" });
               } else {
                 this.$notify.error({
                   title: "错误",
@@ -178,15 +199,15 @@ export default {
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isLt2M = file.size / 1024 / 1024 < 5;
 
       this.avatar = file;
       this.imageUrl = URL.createObjectURL(file);
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
+      // if (!isJPG) {
+      //   this.$message.error("上传头像图片只能是 JPG 格式!");
+      // }
       if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+        this.$message.error("上传头像图片大小不能超过 5MB!");
       }
       return isJPG && isLt2M;
     },

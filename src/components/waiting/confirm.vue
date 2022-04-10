@@ -72,29 +72,40 @@
 <script>
 export default {
   name: "confirm",
+  props: {
+    verified: Boolean,
+  },
   data() {
     return {
       active: 0,
     };
   },
-
+  watch: {
+    verified(n, o) {
+      console.log(`hhh`)
+      if (n||o) {
+        this.active = 2;
+      }
+    },
+  },
   methods: {
-    next() {
-      if (this.active++ > 2) this.active = 0;
-    },
     startExam() {
-      this.apis.waiting.startExam(sessionStorage.getItem("eid"),sessionStorage.getItem("username")).then((res) => {
-        if(res.data.status === 200){
-          // console.log(res);
-          this.$router.push({ name: "testing" });
-        }
-      })
-      
+      this.apis.waiting
+        .startExam(
+          sessionStorage.getItem("eid"),
+          sessionStorage.getItem("username")
+        )
+        .then((res) => {
+          if (res.data.status === 200) {
+            // console.log(res);
+            this.$router.push({ name: "testing" });
+          }
+        });
     },
-    activeMotivation(){
-      this.active = 2;
-      this.$store.commit("set_camera_show_true");
-    }
+    activeMotivation() {
+      // this.active=2;
+      this.$store.commit("set_camera_show",true);
+    },
   },
 };
 </script>
