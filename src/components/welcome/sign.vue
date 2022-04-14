@@ -35,7 +35,7 @@
     <!-- 背景盒子 -->
     <div class="leftbox">
       <h2 class="title"><span>A12赛道题目</span><br />教考分离系统</h2>
-      <p class="desc">天津大学<span>高级CV攻城狮团队</span></p>
+      <p class="desc"><span>高级CV攻城狮团队</span>竞赛作品</p>
       <img
         class="picture smaller"
         src="../../../static/images/welcome/logo.jpg"
@@ -47,7 +47,7 @@
 
     <div class="rightbox">
       <h2 class="title"><span>A12赛道题目</span><br />教考分离系统</h2>
-      <p class="desc">天津大学<span>高级CV攻城狮团队</span></p>
+      <p class="desc"><span>高级CV攻城狮团队</span>竞赛作品</p>
       <img
         class="picture"
         src="../../../static/images/welcome/logo.jpg"

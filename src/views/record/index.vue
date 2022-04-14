@@ -3,7 +3,7 @@
     <div id="main_container">
       <transition-group appear v-if="data.length > 0">
         <card
-          v-for="(record, index) in arr"
+          v-for="(record, index) in data"
           :key="record.title + index"
           :record="record"
         >

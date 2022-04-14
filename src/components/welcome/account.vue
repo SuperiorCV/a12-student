@@ -150,7 +150,7 @@ export default {
             method: "POST", //请求方法
             body: data, //请求体
           };
-          fetch("http://101.43.213.112/face/register/", options)
+          fetch("https://face.workai.top/face/register/", options)
             .then((res) => res.json())
             .then((data) => {
               console.log(data);

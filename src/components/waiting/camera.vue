@@ -122,16 +122,16 @@ export default {
           body: data, //请求体
         };
         this.loading = true;
-        fetch("http://101.43.213.112/face/verify/", options)
+        fetch("https://face.workai.top/face/verify/", options)
           .then((res) => {
-            // console.log(res);
             return res.json();
           })
           .then((data) => {
-            if (data.verify_correct == "false") {
+            if (data.verify_correct == false) {
               this.$notify.error({
-                title: "认证失败，请重新尝试",
+                title: "认证失败，请重新尝试！",
               });
+              this.loading = false;
             } else {
               this.$notify({
                 title: "认证成功",
@@ -139,7 +139,6 @@ export default {
               });
               this.loading = false;
               this.verified = true;
-              console.log(`vvvv`)
               this.$emit("verify", this.verified);
               this.onCancel();
             }

@@ -6,7 +6,7 @@
           id="left"
           class="container"
         >
-          <span>智能训练试卷 - {{ record.title }}</span>
+          <span>考试试卷 - {{ record.title }}</span>
           <span>提交时间： {{ record.commit_time }}</span>
           <span>
             试卷状态：
